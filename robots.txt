@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /panier.html
+Disallow: /commande.html
+Disallow: /admin.html
+
+Sitemap: https://flamiora-f0062.web.app/sitemap.xml
+
