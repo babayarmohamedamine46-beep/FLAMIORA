@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="confirm.title">تم إرسال الطلب | FLAMIORA</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo"><img src="images/favicon.svg" alt="FLAMIORA">FLAMIORA</a>
+    <nav class="main-nav">
+      <a href="index.html" data-i18n="nav.home"></a>
+      <a href="produits.html" data-i18n="nav.products"></a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switch"><button data-lang="ar">AR</button><button data-lang="fr">FR</button></div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="confirm-box">
+    <div class="icon">✅</div>
+    <h1 data-i18n="confirm.title"></h1>
+    <p data-i18n="confirm.text"></p>
+    <a href="index.html" class="btn btn-primary" data-i18n="confirm.backHome"></a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-bottom">© 2026 FLAMIORA — <span data-i18n="footer.rights"></span></div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="assets/js/firebase-config.js"></script>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/products-loader.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    applyLocale();
+    document.querySelectorAll('.lang-switch button').forEach((btn) => {
+      btn.addEventListener('click', () => setLocale(btn.dataset.lang));
+    });
+  });
+</script>
+</body>
+</html>
