@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="checkout.title">إتمام الطلب | FLAMIORA</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container">
+    <span data-i18n="trust.delivery"></span>
+    <span data-i18n="trust.cod"></span>
+    <span data-i18n="trust.returns"></span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo"><img src="images/favicon.svg" alt="FLAMIORA">FLAMIORA</a>
+    <nav class="main-nav">
+      <a href="index.html" data-i18n="nav.home"></a>
+      <a href="produits.html" data-i18n="nav.products"></a>
+      <a href="a-propos.html" data-i18n="nav.about"></a>
+      <a href="contact.html" data-i18n="nav.contact"></a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switch"><button data-lang="ar">AR</button><button data-lang="fr">FR</button></div>
+      <a href="panier.html" class="icon-btn" aria-label="Panier">🛍️<span class="badge cart-count" hidden>0</span></a>
+      <button class="mobile-menu-toggle" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer">
+  <div class="backdrop"></div>
+  <div class="panel">
+    <button class="close-btn" aria-label="Fermer">×</button>
+    <a href="index.html" data-i18n="nav.home"></a>
+    <a href="produits.html" data-i18n="nav.products"></a>
+    <a href="a-propos.html" data-i18n="nav.about"></a>
+    <a href="contact.html" data-i18n="nav.contact"></a>
+  </div>
+</div>
+
+<main class="container section">
+  <h1 class="section-title" data-i18n="checkout.title"></h1>
+
+  <div id="checkout-empty" class="empty-state" hidden>
+    <div class="icon">🛍️</div>
+    <p data-i18n="cart.empty"></p>
+    <a href="produits.html" class="btn btn-primary" data-i18n="cart.emptyCta"></a>
+  </div>
+
+  <div id="checkout-layout" class="cart-layout" hidden>
+    <form class="cart-lines" id="checkout-form" novalidate>
+      <h2 class="section-title" style="font-size:1.2rem;" data-i18n="checkout.customerInfo"></h2>
+      <div class="form-grid">
+        <div class="field full">
+          <label for="name" data-i18n="checkout.name"></label>
+          <input type="text" id="name" name="name" required>
+          <span class="error" id="err-name" hidden data-i18n="checkout.required"></span>
+        </div>
+        <div class="field full">
+          <label for="phone" data-i18n="checkout.phone"></label>
+          <input type="tel" id="phone" name="phone" required placeholder="06XXXXXXXX">
+          <span class="error" id="err-phone" hidden></span>
+        </div>
+        <div class="field full">
+          <label for="city" data-i18n="checkout.city"></label>
+          <select id="city" name="city" required></select>
+          <span class="error" id="err-city" hidden data-i18n="checkout.required"></span>
+        </div>
+        <div class="field full">
+          <label for="address" data-i18n="checkout.address"></label>
+          <textarea id="address" name="address" required></textarea>
+          <span class="error" id="err-address" hidden data-i18n="checkout.required"></span>
+        </div>
+        <div class="field full">
+          <label for="notes" data-i18n="checkout.notes"></label>
+          <textarea id="notes" name="notes"></textarea>
+        </div>
+      </div>
+    </form>
+
+    <aside class="cart-summary">
+      <div class="summary-row"><span data-i18n="cart.subtotal"></span><strong id="summary-subtotal"></strong></div>
+      <div class="summary-row"><span data-i18n="cart.shipping"></span><strong id="summary-shipping"></strong></div>
+      <div class="summary-row total"><span data-i18n="cart.total"></span><strong id="summary-total"></strong></div>
+      <p style="font-size:0.85rem;color:var(--flm-text-muted);margin:14px 0;" data-i18n="checkout.paymentNote"></p>
+      <button type="submit" form="checkout-form" class="btn btn-primary btn-block" id="submit-btn" data-i18n="checkout.submit"></button>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-col">
+      <h4>FLAMIORA</h4>
+      <p data-i18n="brand.tag"></p>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer.shop"></h4>
+      <a href="produits.html" data-i18n="nav.products"></a>
+      <a href="a-propos.html" data-i18n="nav.about"></a>
+      <a href="panier.html" data-i18n="nav.cart"></a>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer.contact"></h4>
+      <a href="tel:+212711088984">+212 711-088984</a>
+      <a href="mailto:babayarmohamedamine4@gmail.com">babayarmohamedamine4@gmail.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 FLAMIORA — <span data-i18n="footer.rights"></span></div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="assets/js/firebase-config.js"></script>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/products-loader.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  function populateCities() {
+    const select = document.getElementById('city');
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = t('checkout.selectCity');
+    select.innerHTML = '';
+    select.appendChild(placeholder);
+    window.CITIES.forEach((c) => {
+      const opt = document.createElement('option');
+      opt.value = c.id;
+      opt.textContent = localized(c, 'name');
+      select.appendChild(opt);
+    });
+  }
+
+  function updateSummary() {
+    const subtotal = cartSubtotal();
+    const cityId = document.getElementById('city').value;
+    const city = getCityById(cityId);
+    const shipping = city ? city.price : 0;
+    document.getElementById('summary-subtotal').textContent = formatPrice(subtotal);
+    document.getElementById('summary-shipping').textContent = city ? formatPrice(shipping) : t('cart.shippingNote');
+    document.getElementById('summary-total').textContent = formatPrice(subtotal + shipping);
+  }
+
+  function validateMoroccanPhone(value) {
+    const digits = value.replace(/[\s.-]/g, '');
+    return /^(0|\+212|00212)[5-7]\d{8}$/.test(digits);
+  }
+
+  async function saveOrderToFirestore({ name, phone, cityId, address, notes }) {
+    const city = getCityById(cityId);
+    const lines = getCart();
+    const shipping = city ? city.price : 0;
+    const subtotal = cartSubtotal();
+    const items = lines.map((l) => {
+      const p = getProductById(l.id);
+      return { product_id: p.id, name_ar: p.name_ar, name_fr: p.name_fr, price: p.price, qty: l.qty };
+    });
+    try {
+      await db.collection('orders').add({
+        customer_name: name,
+        customer_phone: phone,
+        city_id: cityId,
+        city_name: city ? city.name_fr : '',
+        address,
+        notes: notes || '',
+        items,
+        subtotal,
+        shipping_fee: shipping,
+        total: subtotal + shipping,
+        status: 'pending',
+        created_at: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      // La commande reste envoyée via WhatsApp même si l'enregistrement Firestore échoue
+      // (ex. hors ligne) — WhatsApp est le canal de confirmation garanti pour la cliente.
+      console.error('FLAMIORA: échec de l\'enregistrement de la commande dans Firestore.', e);
+    }
+  }
+
+  function initCheckoutPage() {
+    const lines = getCart();
+    if (lines.length === 0) {
+      document.getElementById('checkout-empty').hidden = false;
+      document.getElementById('checkout-layout').hidden = true;
+      return;
+    }
+    document.getElementById('checkout-empty').hidden = true;
+    document.getElementById('checkout-layout').hidden = false;
+
+    populateCities();
+    updateSummary();
+    document.getElementById('city').addEventListener('change', updateSummary);
+
+    const form = document.getElementById('checkout-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const cityId = document.getElementById('city').value;
+      const address = document.getElementById('address').value.trim();
+      const notes = document.getElementById('notes').value.trim();
+
+      let valid = true;
+      const setError = (fieldId, errId, show, message) => {
+        document.getElementById(fieldId).classList.toggle('invalid', show);
+        const errEl = document.getElementById(errId);
+        if (message) errEl.textContent = message;
+        errEl.hidden = !show;
+        if (show) valid = false;
+      };
+
+      setError('name', 'err-name', name.length === 0);
+      setError('phone', 'err-phone', phone.length === 0, t('checkout.required'));
+      if (phone.length > 0 && !validateMoroccanPhone(phone)) {
+        setError('phone', 'err-phone', true, t('checkout.invalidPhone'));
+      }
+      setError('city', 'err-city', cityId === '');
+      setError('address', 'err-address', address.length === 0);
+
+      if (!valid) return;
+
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.setAttribute('disabled', 'disabled');
+
+      await saveOrderToFirestore({ name, phone, cityId, address, notes });
+
+      const message = buildOrderMessage({ name, phone, cityId, address, notes });
+      const url = buildWhatsAppUrl(message);
+      window.open(url, '_blank', 'noopener');
+      localStorage.removeItem('flm_cart');
+      window.location.href = 'merci.html';
+    });
+  }
+
+  FLM_DATA_READY.then(() => {
+    applyLocale();
+    initCheckoutPage();
+    document.querySelectorAll('.lang-switch button').forEach((btn) => {
+      btn.addEventListener('click', () => setTimeout(initCheckoutPage, 0));
+    });
+  });
+</script>
+</body>
+</html>
