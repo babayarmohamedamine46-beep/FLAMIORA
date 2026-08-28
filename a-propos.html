@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="about.title">من نحن | FLAMIORA</title>
+<meta name="description" content="تعرفي على قصة FLAMIORA ورؤيتنا في عالم المجوهرات الفاخرة.">
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container">
+    <span data-i18n="trust.delivery"></span>
+    <span data-i18n="trust.cod"></span>
+    <span data-i18n="trust.returns"></span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo"><img src="images/favicon.svg" alt="FLAMIORA">FLAMIORA</a>
+    <nav class="main-nav">
+      <a href="index.html" data-i18n="nav.home"></a>
+      <a href="produits.html" data-i18n="nav.products"></a>
+      <a href="a-propos.html" data-i18n="nav.about"></a>
+      <a href="contact.html" data-i18n="nav.contact"></a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switch"><button data-lang="ar">AR</button><button data-lang="fr">FR</button></div>
+      <a href="panier.html" class="icon-btn" aria-label="Panier">🛍️<span class="badge cart-count" hidden>0</span></a>
+      <button class="mobile-menu-toggle" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer">
+  <div class="backdrop"></div>
+  <div class="panel">
+    <button class="close-btn" aria-label="Fermer">×</button>
+    <a href="index.html" data-i18n="nav.home"></a>
+    <a href="produits.html" data-i18n="nav.products"></a>
+    <a href="a-propos.html" data-i18n="nav.about"></a>
+    <a href="contact.html" data-i18n="nav.contact"></a>
+  </div>
+</div>
+
+<main class="container section editorial">
+  <div class="editorial-media">
+    <img src="images/products/bague-rose-de-luxe.svg" alt="FLAMIORA" loading="lazy">
+  </div>
+  <div class="editorial-copy">
+    <span class="eyebrow" data-i18n="brand.tag"></span>
+    <h1 id="about-title" style="font-size:1.9rem;margin:10px 0 16px;"></h1>
+    <p id="about-p1" style="color:var(--flm-text-muted);margin-bottom:16px;line-height:1.8;"></p>
+    <p id="about-p2" style="color:var(--flm-text-muted);margin-bottom:24px;line-height:1.8;"></p>
+    <a href="produits.html" class="btn btn-primary" data-i18n="hero.cta"></a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-col">
+      <h4>FLAMIORA</h4>
+      <p data-i18n="brand.tag"></p>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer.shop"></h4>
+      <a href="produits.html" data-i18n="nav.products"></a>
+      <a href="a-propos.html" data-i18n="nav.about"></a>
+      <a href="panier.html" data-i18n="nav.cart"></a>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer.contact"></h4>
+      <a href="tel:+212711088984">+212 711-088984</a>
+      <a href="mailto:babayarmohamedamine4@gmail.com">babayarmohamedamine4@gmail.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 FLAMIORA — <span data-i18n="footer.rights"></span></div>
+</footer>
+
+<a class="fab fab-whatsapp js-whatsapp-generic" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+<a class="fab fab-cart" href="panier.html" aria-label="Panier">🛍️<span class="badge cart-count" hidden>0</span></a>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="assets/js/firebase-config.js"></script>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/products-loader.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  function initAboutPage() {
+    const isAr = getLocale() === 'ar';
+    document.getElementById('about-title').textContent = isAr ? 'قصة FLAMIORA' : "L'histoire de FLAMIORA";
+    document.getElementById('about-p1').textContent = isAr
+      ? 'وُلدت FLAMIORA من شغف بالتفاصيل الدقيقة والجمال الخالد. نختار كل قطعة بعناية لتعكس أناقة المرأة المغربية العصرية.'
+      : "FLAMIORA est née d'une passion pour les détails délicats et la beauté intemporelle. Chaque pièce est choisie avec soin pour refléter l'élégance de la femme marocaine moderne.";
+    document.getElementById('about-p2').textContent = isAr
+      ? 'نلتزم بجودة عالية وخدمة راقية، مع توصيل سريع لجميع المدن المغربية ودفع آمن عند الاستلام.'
+      : "Nous nous engageons pour une qualité irréprochable et un service soigné, avec une livraison rapide dans tout le Maroc et un paiement sécurisé à la livraison.";
+  }
+  document.addEventListener('DOMContentLoaded', initAboutPage);
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.lang-switch button').forEach((btn) => {
+      btn.addEventListener('click', () => setTimeout(initAboutPage, 0));
+    });
+  });
+</script>
+</body>
+</html>
