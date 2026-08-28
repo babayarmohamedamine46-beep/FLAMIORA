@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">FLAMIORA</title>
+<meta name="description" id="page-description" content="FLAMIORA">
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container">
+    <span data-i18n="trust.delivery"></span>
+    <span data-i18n="trust.cod"></span>
+    <span data-i18n="trust.returns"></span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo"><img src="images/favicon.svg" alt="FLAMIORA">FLAMIORA</a>
+    <nav class="main-nav">
+      <a href="index.html" data-i18n="nav.home"></a>
+      <a href="produits.html" data-i18n="nav.products"></a>
+      <a href="a-propos.html" data-i18n="nav.about"></a>
+      <a href="contact.html" data-i18n="nav.contact"></a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switch"><button data-lang="ar">AR</button><button data-lang="fr">FR</button></div>
+      <a href="panier.html" class="icon-btn" aria-label="Panier">🛍️<span class="badge cart-count" hidden>0</span></a>
+      <button class="mobile-menu-toggle" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer">
+  <div class="backdrop"></div>
+  <div class="panel">
+    <button class="close-btn" aria-label="Fermer">×</button>
+    <a href="index.html" data-i18n="nav.home"></a>
+    <a href="produits.html" data-i18n="nav.products"></a>
+    <a href="a-propos.html" data-i18n="nav.about"></a>
+    <a href="contact.html" data-i18n="nav.contact"></a>
+  </div>
+</div>
+
+<main class="container section" id="product-root">
+  <p class="empty-state" id="not-found" hidden data-i18n="notfound.title"></p>
+
+  <div id="product-view" hidden>
+    <div class="breadcrumb">
+      <a href="index.html" data-i18n="nav.home"></a> /
+      <a href="produits.html" data-i18n="nav.products"></a> /
+      <a id="crumb-category" href="#"></a> /
+      <span id="crumb-product"></span>
+    </div>
+
+    <div class="product-detail">
+      <div class="product-gallery">
+        <div class="main-image"><img id="product-image" src="" alt=""></div>
+      </div>
+      <div class="product-info">
+        <h1 id="product-name"></h1>
+        <p class="short-desc" id="product-short"></p>
+        <div class="price-row">
+          <span class="price" id="product-price"></span>
+          <span class="old-price" id="product-compare" hidden></span>
+        </div>
+        <div id="product-stock"></div>
+
+        <div class="qty-row">
+          <label for="qty-input" data-i18n="product.quantity"></label>
+          <div class="qty-stepper">
+            <button type="button" id="qty-minus" aria-label="-">−</button>
+            <input type="number" id="qty-input" value="1" min="1">
+            <button type="button" id="qty-plus" aria-label="+">+</button>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-block" id="add-to-cart-btn" data-i18n="product.addToCart"></button>
+
+        <p class="description" id="product-description"></p>
+      </div>
+    </div>
+
+    <div class="similar-products">
+      <h2 class="section-title" data-i18n="product.similar"></h2>
+      <div class="product-grid" id="similar-grid"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-col">
+      <h4>FLAMIORA</h4>
+      <p data-i18n="brand.tag"></p>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer.shop"></h4>
+      <a href="produits.html" data-i18n="nav.products"></a>
+      <a href="a-propos.html" data-i18n="nav.about"></a>
+      <a href="panier.html" data-i18n="nav.cart"></a>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer.contact"></h4>
+      <a href="tel:+212711088984">+212 711-088984</a>
+      <a href="mailto:babayarmohamedamine4@gmail.com">babayarmohamedamine4@gmail.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 FLAMIORA — <span data-i18n="footer.rights"></span></div>
+</footer>
+
+<a class="fab fab-whatsapp js-whatsapp-generic" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+<a class="fab fab-cart" href="panier.html" aria-label="Panier">🛍️<span class="badge cart-count" hidden>0</span></a>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="assets/js/firebase-config.js"></script>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/products-loader.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  function renderProductCard(p) {
+    const compareHtml = p.compare_at ? `<span class="old">${formatPrice(p.compare_at)}</span>` : '';
+    const disabled = p.stock <= 0 ? 'disabled' : '';
+    return `<div class="product-card">
+      <a class="thumb" href="produit.html?slug=${p.slug}"><img src="${p.image}" alt="${localized(p, 'name')}" loading="lazy"></a>
+      <div class="body">
+        ${stockBadge(p)}
+        <a href="produit.html?slug=${p.slug}" class="name">${localized(p, 'name')}</a>
+        <div class="price">${compareHtml}${formatPrice(p.price)}</div>
+        <button class="btn btn-primary add-btn" data-add="${p.id}" ${disabled}>${t('product.addToCart')}</button>
+      </div>
+    </div>`;
+  }
+
+  function currentSlug() {
+    return new URLSearchParams(window.location.search).get('slug') || '';
+  }
+
+  function initProductPage() {
+    const product = getProductBySlug(currentSlug());
+
+    if (!product) {
+      document.getElementById('not-found').hidden = false;
+      document.getElementById('product-view').hidden = true;
+      return;
+    }
+
+    document.getElementById('not-found').hidden = true;
+    document.getElementById('product-view').hidden = false;
+
+    const category = getCategoryById(product.category_id);
+    const name = localized(product, 'name');
+    const short = localized(product, 'short');
+    const desc = localized(product, 'desc');
+
+    document.getElementById('page-title').textContent = `${name} | FLAMIORA`;
+    document.getElementById('page-description').setAttribute('content', short);
+
+    document.getElementById('crumb-category').textContent = category ? localized(category, 'name') : '';
+    document.getElementById('crumb-category').href = category ? `produits.html?cat=${category.id}` : 'produits.html';
+    document.getElementById('crumb-product').textContent = name;
+
+    document.getElementById('product-image').src = product.image;
+    document.getElementById('product-image').alt = name;
+    document.getElementById('product-name').textContent = name;
+    document.getElementById('product-short').textContent = short;
+    document.getElementById('product-price').textContent = formatPrice(product.price);
+
+    const compareEl = document.getElementById('product-compare');
+    if (product.compare_at) {
+      compareEl.textContent = formatPrice(product.compare_at);
+      compareEl.hidden = false;
+    } else {
+      compareEl.hidden = true;
+    }
+
+    document.getElementById('product-stock').innerHTML = stockBadge(product);
+    document.getElementById('product-description').textContent = desc;
+
+    const qtyInput = document.getElementById('qty-input');
+    qtyInput.max = product.stock;
+    qtyInput.value = product.stock > 0 ? 1 : 0;
+
+    const addBtn = document.getElementById('add-to-cart-btn');
+    if (product.stock <= 0) {
+      addBtn.setAttribute('disabled', 'disabled');
+      addBtn.textContent = t('product.outOfStock');
+    } else {
+      addBtn.removeAttribute('disabled');
+      addBtn.textContent = t('product.addToCart');
+      addBtn.onclick = () => {
+        const qty = Math.max(1, Math.min(parseInt(qtyInput.value, 10) || 1, product.stock));
+        addToCart(product.id, qty);
+        addBtn.textContent = getLocale() === 'ar' ? 'أُضيف إلى السلة ✓' : 'Ajouté au panier ✓';
+        setTimeout(() => { addBtn.textContent = t('product.addToCart'); }, 1400);
+      };
+    }
+
+    document.getElementById('qty-minus').onclick = () => {
+      qtyInput.value = Math.max(1, (parseInt(qtyInput.value, 10) || 1) - 1);
+    };
+    document.getElementById('qty-plus').onclick = () => {
+      qtyInput.value = Math.min(product.stock, (parseInt(qtyInput.value, 10) || 1) + 1);
+    };
+
+    const similar = window.PRODUCTS.filter((p) => p.category_id === product.category_id && p.id !== product.id).slice(0, 4);
+    document.getElementById('similar-grid').innerHTML = similar.map(renderProductCard).join('');
+    document.querySelectorAll('#similar-grid [data-add]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        addToCart(btn.dataset.add, 1);
+        btn.textContent = getLocale() === 'ar' ? 'أُضيف ✓' : 'Ajouté ✓';
+        setTimeout(() => { btn.textContent = t('product.addToCart'); }, 1200);
+      });
+    });
+  }
+
+  FLM_DATA_READY.then(() => {
+    applyLocale();
+    initProductPage();
+    document.querySelectorAll('.lang-switch button').forEach((btn) => {
+      btn.addEventListener('click', () => setTimeout(initProductPage, 0));
+    });
+  });
+</script>
+</body>
+</html>
