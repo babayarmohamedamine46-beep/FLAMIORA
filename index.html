@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLAMIORA | دار مجوهرات فاخرة في المغرب</title>
+<meta name="description" content="اكتشفي تشكيلة FLAMIORA من المجوهرات الفاخرة: خواتم، سلاسل، أقراط وأساور. توصيل لجميع المدن المغربية والدفع عند الاستلام.">
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container">
+    <span data-i18n="trust.delivery"></span>
+    <span data-i18n="trust.cod"></span>
+    <span data-i18n="trust.returns"></span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo"><img src="images/favicon.svg" alt="FLAMIORA">FLAMIORA</a>
+    <nav class="main-nav">
+      <a href="index.html" data-i18n="nav.home"></a>
+      <a href="produits.html" data-i18n="nav.products"></a>
+      <a href="a-propos.html" data-i18n="nav.about"></a>
+      <a href="contact.html" data-i18n="nav.contact"></a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switch"><button data-lang="ar">AR</button><button data-lang="fr">FR</button></div>
+      <a href="panier.html" class="icon-btn" aria-label="Panier">🛍️<span class="badge cart-count" hidden>0</span></a>
+      <button class="mobile-menu-toggle" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer">
+  <div class="backdrop"></div>
+  <div class="panel">
+    <button class="close-btn" aria-label="Fermer">×</button>
+    <a href="index.html" data-i18n="nav.home"></a>
+    <a href="produits.html" data-i18n="nav.products"></a>
+    <a href="a-propos.html" data-i18n="nav.about"></a>
+    <a href="contact.html" data-i18n="nav.contact"></a>
+  </div>
+</div>
+
+<main>
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <span class="eyebrow" data-i18n="brand.tag"></span>
+        <h1 data-i18n="hero.title"></h1>
+        <p data-i18n="hero.subtitle"></p>
+        <a href="produits.html" class="btn btn-primary" data-i18n="hero.cta"></a>
+      </div>
+      <div class="hero-media">
+        <img src="images/products/bague-royale.svg" alt="FLAMIORA" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="container section">
+    <h2 class="section-title" data-i18n="home.categories"></h2>
+    <div class="category-grid" id="category-grid"></div>
+  </section>
+
+  <section class="container section">
+    <div class="section-head">
+      <div><span class="eyebrow" data-i18n="home.collection"></span><h2 class="section-title" data-i18n="home.featured"></h2></div>
+      <a href="produits.html" class="link-more" data-i18n="products.title"></a>
+    </div>
+    <div class="product-grid" id="featured-grid"></div>
+  </section>
+
+  <section class="container section editorial">
+    <div class="editorial-media">
+      <img src="images/products/collier-coeur.svg" alt="FLAMIORA" loading="lazy">
+    </div>
+    <div class="editorial-copy">
+      <span class="eyebrow" data-i18n="home.editorial.eyebrow"></span>
+      <h2 data-i18n="home.editorial.title"></h2>
+      <p data-i18n="home.editorial.text"></p>
+      <a href="a-propos.html" class="btn btn-outline" data-i18n="home.editorial.cta"></a>
+    </div>
+  </section>
+
+  <section class="container section">
+    <div class="section-head">
+      <div><span class="eyebrow" data-i18n="home.reviews"></span><h2 class="section-title" data-i18n="home.reviewsTitle"></h2></div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p id="review1"></p>
+        <span class="review-author">— Salma</span>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p id="review2"></p>
+        <span class="review-author">— Yasmine</span>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★☆</div>
+        <p id="review3"></p>
+        <span class="review-author">— Imane</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-col">
+      <h4>FLAMIORA</h4>
+      <p data-i18n="brand.tag"></p>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer.shop"></h4>
+      <a href="produits.html" data-i18n="nav.products"></a>
+      <a href="a-propos.html" data-i18n="nav.about"></a>
+      <a href="panier.html" data-i18n="nav.cart"></a>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer.contact"></h4>
+      <a href="tel:+212711088984">+212 711-088984</a>
+      <a href="mailto:babayarmohamedamine4@gmail.com">babayarmohamedamine4@gmail.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 FLAMIORA — <span data-i18n="footer.rights"></span></div>
+</footer>
+
+<a class="fab fab-whatsapp js-whatsapp-generic" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+<a class="fab fab-cart" href="panier.html" aria-label="Panier">🛍️<span class="badge cart-count" hidden>0</span></a>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="assets/js/firebase-config.js"></script>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/products-loader.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  function renderCategoryCard(cat) {
+    return `<a class="category-card" href="produits.html?cat=${cat.id}">
+      <img src="${cat.image}" alt="${localized(cat, 'name')}" loading="lazy">
+      <div class="label">${localized(cat, 'name')}</div>
+    </a>`;
+  }
+
+  function renderProductCard(p) {
+    const compareHtml = p.compare_at ? `<span class="old">${formatPrice(p.compare_at)}</span>` : '';
+    const disabled = p.stock <= 0 ? 'disabled' : '';
+    return `<div class="product-card">
+      <a class="thumb" href="produit.html?slug=${p.slug}"><img src="${p.image}" alt="${localized(p, 'name')}" loading="lazy"></a>
+      <div class="body">
+        ${stockBadge(p)}
+        <a href="produit.html?slug=${p.slug}" class="name">${localized(p, 'name')}</a>
+        <div class="price">${compareHtml}${formatPrice(p.price)}</div>
+        <button class="btn btn-primary add-btn" data-add="${p.id}" ${disabled}>${t('product.addToCart')}</button>
+      </div>
+    </div>`;
+  }
+
+  function initHome() {
+    document.getElementById('category-grid').innerHTML = window.CATEGORIES.map(renderCategoryCard).join('');
+    document.getElementById('featured-grid').innerHTML = window.PRODUCTS.filter((p) => p.featured).slice(0, 4).map(renderProductCard).join('');
+
+    document.querySelectorAll('[data-add]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        addToCart(btn.dataset.add, 1);
+        btn.textContent = getLocale() === 'ar' ? 'أُضيف ✓' : 'Ajouté ✓';
+        setTimeout(() => { btn.textContent = t('product.addToCart'); }, 1200);
+      });
+    });
+
+    const reviews = getLocale() === 'ar'
+      ? ['جودة رائعة وتغليف أنيق، وصل الطلب بسرعة!', 'خاتم جميل جدًا يستحق الثمن.', 'تعامل راقٍ وتوصيل سريع لمدينتي.']
+      : ["Qualité superbe et emballage élégant, livraison rapide !", "Une très belle bague, ça valait le prix.", "Service impeccable et livraison rapide dans ma ville."];
+    document.getElementById('review1').textContent = `"${reviews[0]}"`;
+    document.getElementById('review2').textContent = `"${reviews[1]}"`;
+    document.getElementById('review3').textContent = `"${reviews[2]}"`;
+  }
+
+  FLM_DATA_READY.then(() => {
+    applyLocale();
+    initHome();
+    document.querySelectorAll('.lang-switch button').forEach((btn) => {
+      btn.addEventListener('click', () => setTimeout(initHome, 0));
+    });
+  });
+</script>
+</body>
+</html>
