@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://example.com/</loc></url>
+  <url><loc>https://example.com/produits.html</loc></url>
+  <url><loc>https://example.com/a-propos.html</loc></url>
+  <url><loc>https://example.com/contact.html</loc></url>
+  <url><loc>https://example.com/produit.html?slug=bague-rose-de-luxe</loc></url>
+  <url><loc>https://example.com/produit.html?slug=collier-elegant</loc></url>
+  <url><loc>https://example.com/produit.html?slug=boucles-doreilles-perle</loc></url>
+  <url><loc>https://example.com/produit.html?slug=bague-classique</loc></url>
+  <url><loc>https://example.com/produit.html?slug=bague-royale</loc></url>
+  <url><loc>https://example.com/produit.html?slug=boucles-zircon</loc></url>
+  <url><loc>https://example.com/produit.html?slug=bracelet-infinity</loc></url>
+  <url><loc>https://example.com/produit.html?slug=collier-coeur</loc></url>
+</urlset>
+
