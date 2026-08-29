@@ -41,3 +41,10 @@ Le paiement se fait uniquement à la livraison (COD). Au moment de la commande :
 - Le panier est vérifié, puis la commande est enregistrée dans la collection Firestore `orders` (visible et gérable depuis `admin.html` → *Commandes*).
 - Le message récapitulatif est envoyé au commerçant via WhatsApp (numéro configuré dans `assets/js/main.js`), qui reste le canal de confirmation garanti même si l'écriture Firestore échoue (ex. cliente hors ligne).
 
+
+
+## لوحة التحكم والتحليلات
+
+لوحة `admin.html` تحتوي الآن على: نظرة عامة، تحليلات سلوك الزبائن، إدارة المنتجات والفئات، إدارة الطلبات، وإعدادات المتجر. يتم تسجيل أحداث تسوق مجهولة فقط في `analytics_events` مثل مشاهدة المنتج، البحث، الإضافة للسلة، فتح checkout، وإتمام الطلب. لا يتم تسجيل الاسم أو الهاتف أو العنوان في التحليلات.
+
+التقرير اليومي يُحسب من أحداث اليوم داخل لوحة التحكم، ويمكن اختيار 7 أو 30 يومًا وتصدير الأحداث إلى CSV.

@@ -5,6 +5,15 @@ const STORE = {
   email: 'babayarmohamedamine4@gmail.com',
 };
 
+if (window.FLM_SETTINGS_READY) {
+  window.FLM_SETTINGS_READY.then((settings) => {
+    STORE.name = settings.brand_name || STORE.name;
+    STORE.whatsappNumber = String(settings.whatsapp_number || STORE.whatsappNumber).replace(/\D/g, '');
+    STORE.phoneDisplay = settings.phone_display || STORE.phoneDisplay;
+    STORE.email = settings.email || STORE.email;
+  });
+}
+
 function formatPrice(amount) {
   const locale = getLocale();
   const value = Number(amount).toFixed(2);
@@ -34,9 +43,13 @@ function saveCart(lines) {
   updateCartBadge();
 }
 
+function trackStoreEvent(name, data = {}) {
+  if (window.FLM_ANALYTICS) window.FLM_ANALYTICS.track(name, data);
+}
+
 function addToCart(productId, qty = 1) {
   const product = getProductById(productId);
-  if (!product || product.stock <= 0) return;
+  if (!product || product.stock <= 0) return false;
   const lines = getCart();
   const existing = lines.find((l) => l.id === productId);
   const maxQty = product.stock;
@@ -47,6 +60,8 @@ function addToCart(productId, qty = 1) {
     lines.push({ id: productId, qty: initialQty });
   }
   saveCart(lines);
+  trackStoreEvent('add_to_cart', { product_id: product.id, product_name: product.name_fr || product.name_ar, quantity: qty, value: product.price * qty, cart_count: cartCount() });
+  return true;
 }
 
 function updateCartQty(productId, qty) {
@@ -59,8 +74,11 @@ function updateCartQty(productId, qty) {
 }
 
 function removeFromCart(productId) {
+  const product = getProductById(productId);
+  const old = getCart().find((l) => l.id === productId);
   const lines = getCart().filter((l) => l.id !== productId);
   saveCart(lines);
+  if (product) trackStoreEvent('remove_from_cart', { product_id: product.id, product_name: product.name_fr || product.name_ar, quantity: old ? old.qty : 1, value: old ? product.price * old.qty : product.price, cart_count: cartCount() });
 }
 
 function cartCount() {
@@ -85,6 +103,11 @@ function updateCartBadge() {
 /* ==========================================================================
    Wishlist (localStorage)
    ========================================================================== */
+const RECENT_KEY = 'flm_recent_products';
+function getRecentProductIds() { try { const a=JSON.parse(localStorage.getItem(RECENT_KEY)||'[]'); return Array.isArray(a)?a.filter(x=>typeof x==='string'):[]; } catch { return []; } }
+function rememberProduct(productId) { const ids=getRecentProductIds().filter(id=>id!==productId); ids.unshift(productId); localStorage.setItem(RECENT_KEY, JSON.stringify(ids.slice(0,8))); }
+function getRecentProducts(limit=4) { return getRecentProductIds().map(getProductById).filter(Boolean).slice(0,limit); }
+
 const WISHLIST_KEY = 'flm_wishlist';
 
 function getWishlist() {
@@ -114,6 +137,8 @@ function toggleWishlist(productId) {
     ids.splice(idx, 1);
   }
   saveWishlist(ids);
+  const product = getProductById(productId);
+  trackStoreEvent(idx === -1 ? 'wishlist_add' : 'wishlist_remove', { product_id: productId, product_name: product ? (product.name_fr || product.name_ar) : '' });
   return ids.includes(productId);
 }
 
@@ -128,12 +153,20 @@ function updateWishlistBadges() {
     el.hidden = count === 0;
   });
   document.querySelectorAll('[data-wish]').forEach((btn) => {
-    btn.classList.toggle('is-active', isFavorite(btn.dataset.wish));
+    const active = isFavorite(btn.dataset.wish);
+    btn.classList.toggle('is-active', active);
+    const icon = btn.querySelector('i');
+    if (icon) {
+      icon.classList.toggle('fa-solid', active);
+      icon.classList.toggle('fa-regular', !active);
+    }
+    btn.setAttribute('aria-label', active ? (getLocale() === 'ar' ? 'إزالة من المفضلة' : 'Retirer des favoris') : (getLocale() === 'ar' ? 'إضافة إلى المفضلة' : 'Ajouter aux favoris'));
   });
 }
 
 function wireWishlistButtons(root = document) {
   root.querySelectorAll('[data-wish]').forEach((btn) => {
+    if (!btn.querySelector('i')) btn.insertAdjacentHTML('afterbegin', '<i class="fa-regular fa-heart" aria-hidden="true"></i>');
     if (btn.dataset.wired) return;
     btn.dataset.wired = '1';
     btn.classList.toggle('is-active', isFavorite(btn.dataset.wish));
@@ -141,9 +174,26 @@ function wireWishlistButtons(root = document) {
       e.preventDefault();
       e.stopPropagation();
       const active = toggleWishlist(btn.dataset.wish);
-      btn.classList.toggle('is-active', active);
+      updateWishlistBadges();
+      showToast(active ? (getLocale() === 'ar' ? 'تمت الإضافة إلى المفضلة' : 'Ajouté aux favoris') : (getLocale() === 'ar' ? 'تمت الإزالة من المفضلة' : 'Retiré des favoris'), active ? 'heart' : '');
     });
   });
+}
+
+function showToast(message, type = '') {
+  let toast = document.getElementById('flm-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'flm-toast';
+    toast.className = 'flm-toast';
+    document.body.appendChild(toast);
+  }
+  toast.className = `flm-toast ${type}`;
+  toast.innerHTML = type === 'heart' ? '<i class="fa-solid fa-heart" aria-hidden="true"></i>' : '<i class="fa-solid fa-check" aria-hidden="true"></i>';
+  toast.append(document.createTextNode(` ${message}`));
+  requestAnimationFrame(() => toast.classList.add('show'));
+  clearTimeout(window.__flmToastTimer);
+  window.__flmToastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
 }
 
 /* ==========================================================================
@@ -170,7 +220,7 @@ function searchProducts(query, limit = 8) {
 
 function renderSearchResultItem(p) {
   return `<a class="search-item" href="produit.html?slug=${p.slug}">
-    <img src="${p.image}" alt="${localized(p, 'name')}" loading="lazy">
+    <span class="search-placeholder" aria-hidden="true"><i class="fa-solid fa-gem"></i></span>
     <div class="info">
       <span class="name">${localized(p, 'name')}</span>
       <span class="price">${formatPrice(p.price)}</span>
@@ -296,6 +346,29 @@ function buildOrderMessage({ name, phone, cityId, address, notes }) {
   ].filter(Boolean).join('\n');
 }
 
+function setActiveMainNav() {
+  const page = document.body.dataset.page || '';
+  document.querySelectorAll('.main-nav a[data-page-target]').forEach((link) => {
+    link.classList.toggle('active', link.dataset.pageTarget === page);
+  });
+}
+
+function closeMobileDrawer() {
+  const drawer = document.querySelector('.mobile-drawer');
+  if (!drawer) return;
+  drawer.classList.remove('open');
+  document.body.classList.remove('no-scroll');
+}
+
+function initBackToTop() {
+  const btn = document.querySelector('.back-to-top');
+  if (!btn) return;
+  const update = () => btn.classList.toggle('visible', window.scrollY > 420);
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+}
+
 function wireSharedChrome() {
   document.querySelectorAll('.lang-switch button').forEach((btn) => {
     btn.addEventListener('click', () => setLocale(btn.dataset.lang));
@@ -315,22 +388,35 @@ function wireSharedChrome() {
     toggle.addEventListener('click', open);
     drawer.querySelector('.backdrop')?.addEventListener('click', close);
     drawer.querySelector('.close-btn')?.addEventListener('click', close);
+    document.querySelectorAll('[data-open-menu]').forEach((btn) => btn.addEventListener('click', open));
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') close();
     });
   }
 
-  document.querySelectorAll('.js-whatsapp-generic').forEach((el) => {
-    el.setAttribute('href', genericWhatsAppUrl());
-  });
+  const wireContactLinks = () => {
+    document.querySelectorAll('.js-whatsapp-generic').forEach((el) => {
+      el.setAttribute('href', genericWhatsAppUrl());
+      if (!el.dataset.analyticsWired) {
+        el.dataset.analyticsWired = '1';
+        el.addEventListener('click', () => trackStoreEvent('whatsapp_click', { target: 'whatsapp' }));
+      }
+    });
+    document.querySelectorAll('#product-whatsapp-btn').forEach((el) => {
+      if (!el.dataset.analyticsWired) { el.dataset.analyticsWired = '1'; el.addEventListener('click', () => trackStoreEvent('whatsapp_click', { target: 'product_inquiry' })); }
+    });
+  };
+  if (window.FLM_SETTINGS_READY) window.FLM_SETTINGS_READY.then(wireContactLinks); else wireContactLinks();
 
   updateCartBadge();
   updateWishlistBadges();
   wireWishlistButtons();
   wireGlobalSearch();
+  setActiveMainNav();
+  initBackToTop();
 
   document.querySelectorAll('.bottom-nav a, .bottom-nav button').forEach((el) => {
-    if (el.dataset.page && el.dataset.page === document.body.dataset.page) {
+      if (el.dataset.page && el.dataset.page === document.body.dataset.page) {
       el.classList.add('active');
     }
   });
