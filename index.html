@@ -17,16 +17,15 @@
 <meta content="FLAMIORA" property="og:site_name"/>
 <meta content="FLAMIORA | دار مجوهرات فاخرة في المغرب" property="og:title"/>
 <meta content="اكتشفي تشكيلة FLAMIORA من المجوهرات الفاخرة: خواتم، سلاسل، أقراط وأساور. توصيل لجميع المدن المغربية والدفع عند الاستلام." property="og:description"/>
-<meta content="https://flamiora-accessories.github.io/FLAMIORA/images/banners/banner-1.jpg" property="og:image"/>
+<meta content="https://flamiora-accessories.github.io/FLAMIORA/images/logo.png" property="og:image"/>
 <meta content="https://flamiora-accessories.github.io/FLAMIORA/" property="og:url"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="FLAMIORA | دار مجوهرات فاخرة في المغرب" name="twitter:title"/>
 <meta content="اكتشفي تشكيلة FLAMIORA من المجوهرات الفاخرة: خواتم، سلاسل، أقراط وأساور. توصيل لجميع المدن المغربية والدفع عند الاستلام." name="twitter:description"/>
 <link href="images/favicon.png" rel="icon" type="image/png"/>
 <link href="manifest.webmanifest" rel="manifest"/>
-<link as="image" fetchpriority="high" href="images/banners/banner-1.jpg" rel="preload"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Cairo:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Cairo:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
 <link href="assets/css/style.css" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/animations.css">
@@ -41,13 +40,6 @@
 </script>
 </head>
 <body class="has-bottom-nav" data-page="home" id="top">
-<div class="topbar">
-<div class="container">
-<span data-i18n="trust.delivery"></span>
-<span data-i18n="trust.cod"></span>
-<span data-i18n="trust.returns"></span>
-</div>
-</div>
 <header class="site-header">
 <div class="container header-inner">
 <button aria-label="Menu" class="mobile-menu-toggle"><i aria-hidden="true" class="fa-solid fa-bars"></i></button>
@@ -105,17 +97,17 @@
 </div>
 </div>
 <main>
-<section class="hero hero-slider">
+<section class="hero hero-slider" aria-label="FLAMIORA">
 <div class="hero-slide active" data-slide="0">
 <div class="container hero-inner">
 <div class="hero-text">
 <span class="eyebrow" data-i18n="brand.tag"></span>
 <h1 data-i18n="hero.title"></h1>
 <p data-i18n="hero.subtitle"></p>
-<a class="btn btn-primary" data-i18n="hero.cta" href="produits.html"></a>
+<a class="btn btn-primary" href="produits.html" data-i18n="hero.cta"></a>
 </div>
 <div class="hero-media">
-<img alt="مجموعة مجوهرات FLAMIORA الفاخرة" decoding="async" fetchpriority="high" src="images/banners/banner-1.jpg"/>
+<picture><img id="hero-img-1" src="images/banners/banner-2.jpg" alt="FLAMIORA" loading="eager" fetchpriority="high"/></picture>
 </div>
 </div>
 </div>
@@ -125,17 +117,17 @@
 <span class="eyebrow" data-i18n="brand.tag"></span>
 <h1 data-i18n="hero.title2"></h1>
 <p data-i18n="hero.subtitle2"></p>
-<a class="btn btn-primary" data-i18n="hero.cta" href="produits.html"></a>
+<a class="btn btn-primary" href="produits.html" data-i18n="hero.cta"></a>
 </div>
 <div class="hero-media">
-<img alt="مجوهرات FLAMIORA بتصميم أنيق" decoding="async" loading="lazy" src="images/banners/banner-2.jpg"/>
+<picture><img id="hero-img-2" src="images/banners/banner-2.jpg" alt="FLAMIORA" loading="lazy"/></picture>
 </div>
 </div>
 </div>
 <div class="container">
 <div class="hero-dots" id="hero-dots">
-<button aria-label="Slide 1" class="active" data-dot="0"></button>
-<button aria-label="Slide 2" data-dot="1"></button>
+<button class="active" data-dot="0" aria-label="Slide 1"></button>
+<button data-dot="1" aria-label="Slide 2"></button>
 </div>
 </div>
 </section>
@@ -161,6 +153,17 @@
 <section class="container section recent-section" hidden id="recent-section">
 <div class="section-head"><div><span class="eyebrow" data-i18n="home.recent"></span><h2 class="section-title" data-i18n="home.recent"></h2></div></div>
 <div class="product-grid" id="recent-grid"></div></section>
+<section class="container section editorial promo-section">
+<div class="editorial-media">
+<img alt="FLAMIORA" loading="lazy" sizes="(max-width: 767px) calc(100vw - 32px), 900px" src="images/banners/banner-2.jpg"/>
+</div>
+<div class="editorial-copy">
+<span class="eyebrow" data-i18n="home.editorial.eyebrow"></span>
+<h2 data-i18n="home.editorial.title"></h2>
+<p data-i18n="home.editorial.text"></p>
+<a class="btn btn-primary" data-i18n="home.editorial.cta" href="produits.html"></a>
+</div>
+</section>
 <section class="trust-section section">
 <div class="container trust-list">
 <div class="trust-item"><span class="ic"><i aria-hidden="true" class="fa-solid fa-shield-heart"></i></span><div><h4 data-i18n="home.trust1title"></h4><p data-i18n="home.trust1text"></p></div></div>
@@ -169,22 +172,12 @@
 <div class="trust-item"><span class="ic"><i aria-hidden="true" class="fa-solid fa-headset"></i></span><div><h4 data-i18n="home.trust4title"></h4><p data-i18n="home.trust4text"></p></div></div>
 </div>
 </section>
-<section class="container section editorial">
-<div class="editorial-media">
-<img alt="FLAMIORA" loading="lazy" src="images/banners/banner-1.jpg"/>
-</div>
-<div class="editorial-copy">
-<span class="eyebrow" data-i18n="home.editorial.eyebrow"></span>
-<h2 data-i18n="home.editorial.title"></h2>
-<p data-i18n="home.editorial.text"></p>
-<a class="btn btn-outline" data-i18n="home.editorial.cta" href="a-propos.html"></a>
-</div>
-</section>
+
 <section class="container section">
 <div class="section-head">
 <div><span class="eyebrow" data-i18n="home.reviews"></span><h2 class="section-title" data-i18n="home.reviewsTitle"></h2></div>
 </div>
-<div class="reviews-grid">
+<div class="reviews-grid" aria-label="Avis clients">
 <div class="review-card">
 <div class="review-stars">★★★★★</div>
 <p id="review1"></p>
@@ -201,6 +194,7 @@
 <span class="review-author">— Imane</span>
 </div>
 </div>
+<div class="reviews-dots" aria-label="Avis clients" role="tablist"><button aria-label="Avis 1" class="active" type="button"></button><button aria-label="Avis 2" type="button"></button><button aria-label="Avis 3" type="button"></button></div>
 </section>
 <section class="container section">
 <div class="section-head">
@@ -210,10 +204,6 @@
 <div class="insta-grid">
 <a href="https://www.instagram.com/flamiora_officiel/" rel="noopener" target="_blank"><img alt="FLAMIORA Instagram" loading="lazy" src="images/instagram/insta-1.jpg"/></a>
 <a href="https://www.instagram.com/flamiora_officiel/" rel="noopener" target="_blank"><img alt="FLAMIORA Instagram" loading="lazy" src="images/instagram/insta-2.jpg"/></a>
-<a href="https://www.instagram.com/flamiora_officiel/" rel="noopener" target="_blank"><img alt="FLAMIORA Instagram" loading="lazy" src="images/instagram/insta-3.jpg"/></a>
-<a href="https://www.instagram.com/flamiora_officiel/" rel="noopener" target="_blank"><img alt="FLAMIORA Instagram" loading="lazy" src="images/instagram/insta-4.jpg"/></a>
-<a href="https://www.instagram.com/flamiora_officiel/" rel="noopener" target="_blank"><img alt="FLAMIORA Instagram" loading="lazy" src="images/instagram/insta-5.jpg"/></a>
-<a href="https://www.instagram.com/flamiora_officiel/" rel="noopener" target="_blank"><img alt="FLAMIORA Instagram" loading="lazy" src="images/instagram/insta-6.jpg"/></a>
 </div>
 <a class="insta-handle" href="https://www.instagram.com/flamiora_officiel/" rel="noopener" target="_blank"><i aria-hidden="true" class="fa-brands fa-instagram"></i> @flamiora_officiel</a>
 </section>
@@ -267,8 +257,10 @@
   function renderCategoryCard(cat) {
     const ar = cat.name_ar || '';
     const fr = cat.name_fr || '';
+    const catImage = cat.image || cat.image_url || '';
+    const visual = catImage ? `<img class="category-image" src="${catImage}" alt="${localized(cat, 'name')}" loading="lazy"/>` : `<span class="category-circle" aria-hidden="true"><i class="fa-solid ${categoryIcon(cat)}"></i></span>`;
     return `<a class="category-card" href="produits.html?cat=${cat.id}">
-      <span class="category-circle" aria-hidden="true"><i class="fa-solid ${categoryIcon(cat)}"></i></span>
+      ${visual}
       <span class="category-name">${localized(cat, 'name')}</span>
       <span class="category-translation">${getLocale() === 'ar' ? fr : ar}</span>
     </a>`;
@@ -282,7 +274,7 @@
       ${newBadge}
       <button class="wish-btn" data-wish="${p.id}" aria-label="Wishlist"><i class="fa-regular fa-heart" aria-hidden="true"></i></button>
       <a class="thumb" href="produit.html?slug=${p.slug}" aria-label="${localized(p, 'name')}">
-        <span class="product-placeholder" aria-hidden="true"><i class="fa-solid fa-gem"></i></span>
+        ${p.image ? `<img src="${p.image}" alt="${localized(p, 'name')}" loading="lazy" decoding="async"/>` : `<span class="product-placeholder" aria-hidden="true"><i class="fa-solid fa-gem"></i></span>`}
       </a>
       <div class="body">
         ${stockBadge(p)}
@@ -291,6 +283,33 @@
         <button class="btn btn-primary add-btn" data-add="${p.id}" ${disabled}>${t('product.addToCart')}</button>
       </div>
     </div>`;
+  }
+
+  function applyHeroSettings() {
+    const settings = window.FLM_SETTINGS || {};
+    const img1 = document.getElementById('hero-img-1');
+    const img2 = document.getElementById('hero-img-2');
+    if (img1 && settings.hero_image_1) img1.src = settings.hero_image_1;
+    if (img2 && settings.hero_image_2) img2.src = settings.hero_image_2;
+  }
+
+  function wireHeroSlider() {
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('#hero-dots button');
+    if (!slides.length || !dots.length) return;
+    let current = 0;
+    let timer = null;
+    function show(i) {
+      slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+      dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+      current = i;
+    }
+    function restart() {
+      clearInterval(timer);
+      timer = setInterval(() => show((current + 1) % slides.length), 5500);
+    }
+    dots.forEach((d) => d.addEventListener('click', () => { show(Number(d.dataset.dot)); restart(); }));
+    restart();
   }
 
   function initHome() {
@@ -315,25 +334,40 @@
     document.getElementById('review1').textContent = `"${reviews[0]}"`;
     document.getElementById('review2').textContent = `"${reviews[1]}"`;
     document.getElementById('review3').textContent = `"${reviews[2]}"`;
+    wireReviewCarousel();
   }
 
-  function wireHeroSlider() {
-    const slides = document.querySelectorAll('.hero-slide');
-    const dots = document.querySelectorAll('#hero-dots button');
-    let current = 0;
-    function show(i) {
-      slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
-      dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
-      current = i;
-    }
-    dots.forEach((d) => d.addEventListener('click', () => show(Number(d.dataset.dot))));
-    setInterval(() => show((current + 1) % slides.length), 5500);
+  function wireReviewCarousel() {
+    const track = document.querySelector('.reviews-grid');
+    const cards = [...document.querySelectorAll('.reviews-grid .review-card')];
+    const dots = [...document.querySelectorAll('.reviews-dots button')];
+    if (!track || !cards.length || !dots.length || track.dataset.wired === '1') return;
+    track.dataset.wired = '1';
+    const update = () => {
+      const left = track.scrollLeft;
+      const dir = getComputedStyle(track).direction;
+      const normalized = dir === 'rtl' ? Math.abs(left) : left;
+      let index = 0;
+      let best = Infinity;
+      cards.forEach((card, i) => {
+        const distance = Math.abs(card.offsetLeft - normalized - track.offsetLeft);
+        if (distance < best) { best = distance; index = i; }
+      });
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+    };
+    track.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+    dots.forEach((dot, i) => dot.addEventListener('click', () => cards[i]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })));
+    update();
   }
+
 
   FLM_DATA_READY.then(() => {
     applyLocale();
     initHome();
     wireHeroSlider();
+    if (window.FLM_SETTINGS_READY) {
+      window.FLM_SETTINGS_READY.then(applyHeroSettings);
+    }
     document.querySelectorAll('.lang-switch button').forEach((btn) => {
       btn.addEventListener('click', () => setTimeout(initHome, 0));
     });

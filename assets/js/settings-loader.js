@@ -6,6 +6,8 @@ const FLM_DEFAULT_SETTINGS = {
   email: 'babayarmohamedamine4@gmail.com',
   instagram_url: 'https://www.instagram.com/flamiora_officiel/',
   free_shipping_threshold: 0,
+  hero_image_1: 'images/banners/banner-2.jpg',
+  hero_image_2: 'images/banners/banner-2.jpg',
 };
 window.FLM_SETTINGS = { ...FLM_DEFAULT_SETTINGS };
 window.FLM_SETTINGS_READY = (async function () {
