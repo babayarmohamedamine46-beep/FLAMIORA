@@ -6,6 +6,7 @@
   --flm-black: #2b1a1a;
   --flm-cream: #fdf3ee;
   --flm-off-white: #fffaf7;
+  --flm-surface: #fffaf7;
   --flm-baby-pink: #f6d6cd;
   --flm-soft-rose: #f0b3a5;
   --flm-rose-deep: #d97e6c;
@@ -360,12 +361,6 @@ textarea:focus-visible, select:focus-visible {
 }
 .fab:hover { transform: scale(1.06); }
 .fab-whatsapp { inset-inline-start: 20px; background: #25d366; color: #fff; }
-.fab-cart { inset-inline-end: 20px; background: var(--flm-black); color: var(--flm-gold-light); position: relative; }
-.fab-cart .badge {
-  position: absolute; top: -4px; inset-inline-end: -4px; background: var(--flm-rose-deep); color: #fff;
-  font-size: 0.7rem; font-weight: 700; width: 20px; height: 20px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-}
 
 /* ==========================================================================
    Utilities & responsive
@@ -539,7 +534,6 @@ body.has-bottom-nav { padding-bottom: 62px; }
   .header-search { display: block; }
   .insta-grid { grid-template-columns: repeat(3, 1fr); }
   .trust-list { justify-content: center; }
-  .fab-cart { bottom: 78px; }
   .fab-whatsapp { bottom: 78px; }
 }
 
@@ -555,6 +549,7 @@ body.has-bottom-nav { padding-bottom: 62px; }
   --flm-black: #4a403a;
   --flm-cream: #f6efe8;
   --flm-off-white: #fffdf9;
+  --flm-surface: #fffdf9;
   --flm-baby-pink: #f7e8e4;
   --flm-soft-rose: #ead1c8;
   --flm-rose-deep: #b88778;
@@ -699,6 +694,7 @@ body {
   color: var(--flm-rose-deep);
   font-size: 1.55rem;
 }
+.category-circle svg { width: 1.7em; height: 1.7em; }
 .category-name {
   font-family: var(--flm-font-heading);
   font-size: .98rem;
@@ -835,11 +831,6 @@ body {
   width: 50px; height: 50px;
   box-shadow: 0 10px 25px rgba(93,70,57,.12);
 }
-.fab-cart {
-  background: var(--flm-off-white);
-  color: var(--flm-rose-deep);
-  border: 1px solid var(--flm-border);
-}
 .fab-whatsapp { background: #d9a994; color: #fff; }
 
 /* Mobile drawer and bottom navigation */
@@ -961,6 +952,13 @@ main { min-height: 50vh; }
 /* Product cards remain ready for real photography without fake images. */
 .product-card { position: relative; }
 .product-card .new-badge { position: absolute; top: 12px; inset-inline-start: 12px; z-index: 2; border-radius: 999px; padding: 5px 9px; font-size: .68rem; }
+.ensemble-card { position: relative; }
+.ensemble-card .thumb { position: relative; display: block; }
+.discount-badge {
+  position: absolute; top: 12px; inset-inline-end: 12px; z-index: 2;
+  background: var(--flm-rose-deep, #d97e6c); color: #fff; font-weight: 800; font-size: .74rem;
+  padding: 5px 10px; border-radius: 999px; box-shadow: 0 6px 14px rgba(217,126,108,.28);
+}
 .product-card .wish-btn { position: absolute; top: 10px; inset-inline-end: 10px; z-index: 3; }
 .wish-btn { width: 38px; height: 38px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: var(--flm-taupe); }
 .wish-btn i { line-height: 1; }
@@ -979,7 +977,7 @@ main { min-height: 50vh; }
 
 /* Footer: clean columns, no dark wall. */
 .site-footer { margin-top: 10px; }
-.footer-inner { grid-template-columns: 1.3fr 1fr 1.35fr; }
+.footer-inner { grid-template-columns: 1.15fr 0.85fr 0.9fr 1.05fr; }
 .footer-col h4 { font-family: var(--flm-font-body); font-weight: 700; }
 
 /* Floating utilities are separated from cart. */
@@ -1117,7 +1115,7 @@ p, li, label { max-width: 100%; }
 @media(max-width:520px){ .cart-reassurance{ grid-template-columns:1fr 1fr; } }
 
 .section-anchor { position: relative; top: -90px; display: block; height: 0; }
-.footer-col a i { margin-inline-end: 6px; width: 1em; text-align: center; }
+.footer-col a i, .footer-col p i { margin-inline-end: 6px; width: 1em; text-align: center; }
 .footer-col a[href*="instagram"] i { color: #c96f93; }
 .footer-col a[href*="wa.me"], .footer-col a.js-whatsapp-generic i { color: #22bf5a; }
 .contact-grid .review-card, main > .reviews-grid .review-card { min-height: 180px; display:flex; flex-direction:column; justify-content:center; }
@@ -1282,8 +1280,7 @@ body.checkout-modal-open { overflow: hidden; }
 
   /* Footer: intentionally short and clean. */
   .site-footer { margin-top: 0; }
-  .footer-inner { grid-template-columns: 1fr 1fr; gap: 22px 16px; padding: 28px 0 18px; }
-  .footer-col:first-child { grid-column: 1 / -1; }
+  .footer-inner { grid-template-columns: 1fr; gap: 26px; padding: 28px 0 18px; text-align: center; }
   .footer-col h4 { font-size: .86rem; margin-bottom: 9px; }
   .footer-col a, .footer-col p { font-size: .76rem; margin-bottom: 7px; }
   .analytics-note { display: none; }
@@ -1298,9 +1295,9 @@ body.checkout-modal-open { overflow: hidden; }
   .bottom-nav .bottom-cart .ic { width: 42px; height: 42px; border-width: 3px; }
   .bottom-nav .bottom-cart .badge { top: 2px; inset-inline-start: 58%; }
 
-  /* Keep floating controls above the bottom navigation. */
-  .fab-whatsapp { bottom: 82px; width: 48px; height: 48px; }
-  .back-to-top { bottom: 82px; inset-inline-end: 16px; width: 42px; height: 42px; }
+  /* Keep floating controls above the bottom navigation and clear of card actions. */
+  .fab-whatsapp { bottom: 96px; width: 44px; height: 44px; }
+  .back-to-top { bottom: 96px; inset-inline-end: 14px; width: 38px; height: 38px; }
 }
 
 @media (min-width: 768px) {

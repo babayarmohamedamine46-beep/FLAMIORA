@@ -151,18 +151,30 @@
 <div class="footer-col">
 <h4>FLAMIORA</h4>
 <p data-i18n="brand.tag"></p>
+<p data-i18n="footer.description"></p>
 </div>
 <div class="footer-col">
 <h4 data-i18n="footer.shop"></h4>
-<a data-i18n="nav.products" data-page-target="products" href="produits.html"></a>
-<a data-i18n="nav.about" data-page-target="about" href="a-propos.html"></a>
-<a data-i18n="nav.cart" data-page-target="cart" href="panier.html"></a>
+<a data-i18n="nav.home" href="index.html"></a>
+<a data-i18n="nav.categories" href="produits.html"></a>
+<a data-i18n="nav.products" href="produits.html"></a>
+<a data-i18n="nav.about" href="a-propos.html"></a>
+<a data-i18n="nav.contact" href="contact.html"></a>
+</div>
+<div class="footer-col">
+<h4 data-i18n="footer.categories"></h4>
+<a data-i18n="footer.necklaces" href="produits.html?cat=necklaces"></a>
+<a data-i18n="footer.bracelets" href="produits.html?cat=bracelets"></a>
+<a data-i18n="footer.rings" href="produits.html?cat=rings"></a>
+<a data-i18n="footer.earrings" href="produits.html?cat=earrings"></a>
+<a data-i18n="footer.allJewelry" href="produits.html"></a>
 </div>
 <div class="footer-col">
 <h4 data-i18n="footer.contact"></h4>
-<a href="tel:+212711088984">+212 711-088984</a>
-<a href="mailto:babayarmohamedamine4@gmail.com">babayarmohamedamine4@gmail.com</a>
-<a href="https://www.instagram.com/flamiora_officiel/" rel="noopener" target="_blank"><i aria-hidden="true" class="fa-brands fa-instagram"></i> Instagram @flamiora_officiel</a>
+<p><i aria-hidden="true" class="fa-solid fa-location-dot"></i> <span data-i18n="footer.address"></span></p>
+<a href="tel:+212711088984"><i aria-hidden="true" class="fa-solid fa-phone"></i> +212 711-088984</a>
+<a href="mailto:babayarmohamedamine4@gmail.com"><i aria-hidden="true" class="fa-solid fa-envelope"></i> babayarmohamedamine4@gmail.com</a>
+<a href="https://www.instagram.com/flamiora_officiel/" rel="noopener" target="_blank"><i aria-hidden="true" class="fa-brands fa-instagram"></i> Instagram</a>
 <a class="js-whatsapp-generic" href="#" rel="noopener" target="_blank"><i aria-hidden="true" class="fa-brands fa-whatsapp"></i> WhatsApp</a>
 </div>
 </div>
@@ -302,13 +314,14 @@
     submit.disabled = true;
     submit.classList.add('is-loading');
     try {
-      await saveQuickOrderToFirestore({ name, phone, cityId, address, notes });
       const message = buildOrderMessage({ name, phone, cityId, address, notes });
+      const url = buildWhatsAppUrl(message);
+      window.open(url, '_blank', 'noopener');
+
+      await saveQuickOrderToFirestore({ name, phone, cityId, address, notes });
       localStorage.removeItem(CART_KEY);
       updateCartBadge();
       closeCheckoutModal();
-      const url = buildWhatsAppUrl(message);
-      window.open(url, '_blank', 'noopener');
       window.location.href = 'merci.html';
     } finally {
       submit.disabled = false;
@@ -398,7 +411,7 @@
 <a data-page="products" href="produits.html"><span class="ic"><i aria-hidden="true" class="fa-solid fa-layer-group"></i></span><span data-i18n="nav.categories"></span></a>
 <a class="bottom-cart" data-page="cart" href="panier.html"><span class="ic"><i aria-hidden="true" class="fa-solid fa-bag-shopping"></i></span><span data-i18n="nav.cart"></span><span class="badge cart-count" hidden="">0</span></a>
 <a data-page="wishlist" href="wishlist.html"><span class="ic"><i aria-hidden="true" class="fa-regular fa-heart"></i></span><span data-i18n="nav.wishlist"></span><span class="badge wishlist-count" hidden="">0</span></a>
-<button aria-label="Menu" data-open-menu="" type="button"><span class="ic"><i aria-hidden="true" class="fa-solid fa-bars"></i></span><span data-i18n="nav.menu"></span></button>
+<a href="tel:+212711088984"><span class="ic"><i aria-hidden="true" class="fa-solid fa-phone"></i></span><span data-i18n="nav.contact"></span></a>
 </div>
 </nav>
   <script src="assets/js/animations.js"></script>

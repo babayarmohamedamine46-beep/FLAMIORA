@@ -40,6 +40,13 @@ window.PRODUCTS = SEED_PRODUCTS.slice();
 window.CATEGORIES = SEED_CATEGORIES.slice();
 window.CITIES = SEED_CITIES.slice();
 
+const SEED_ENSEMBLES = [
+  { id: 'ens_001', slug: 'ensemble-eclat-rose', name_ar: 'طقم إكلات الوردي', name_fr: 'Ensemble Éclat Rose', desc_ar: 'طقم من 3 قطع (سلسلة، خاتم، أقراط) بتصميم متناسق لإطلالة متكاملة.', desc_fr: '3 pièces assorties (collier, bague, boucles) pour une allure complète et raffinée.', price: 1899, compare_at: 2699, active: true, display_order: 1 },
+  { id: 'ens_002', slug: 'ensemble-lumiere-doree', name_ar: 'طقم لوميير الذهبي', name_fr: 'Ensemble Lumière Dorée', desc_ar: 'طقم فاخر من قطعتين (سوار وأقراط) بلمسة ذهبية دافئة، هدية مثالية.', desc_fr: 'Duo luxueux (bracelet et boucles) à la teinte dorée chaleureuse, cadeau idéal.', price: 1499, compare_at: 1999, active: true, display_order: 2 },
+];
+
+window.ENSEMBLES = SEED_ENSEMBLES.slice();
+
 window.FLM_DATA_READY = (async function loadStoreData() {
   try {
     const catSnap = await db.collection('categories').where('active', '==', true).orderBy('display_order').get();
@@ -59,7 +66,16 @@ window.FLM_DATA_READY = (async function loadStoreData() {
     console.error('FLAMIORA: échec du chargement des produits depuis Firestore, utilisation des données de secours.', e);
   }
 
-  return { products: window.PRODUCTS, categories: window.CATEGORIES };
+  try {
+    const ensSnap = await db.collection('ensembles').where('active', '==', true).orderBy('display_order').get();
+    if (!ensSnap.empty) {
+      window.ENSEMBLES = ensSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    }
+  } catch (e) {
+    console.error('FLAMIORA: échec du chargement des ensembles depuis Firestore, utilisation des données de secours.', e);
+  }
+
+  return { products: window.PRODUCTS, categories: window.CATEGORIES, ensembles: window.ENSEMBLES };
 })();
 
 function getProductById(id) {
@@ -76,4 +92,8 @@ function getCategoryById(id) {
 
 function getCityById(id) {
   return window.CITIES.find((c) => c.id === id);
+}
+
+function getEnsembleById(id) {
+  return (window.ENSEMBLES || []).find((e) => e.id === id);
 }

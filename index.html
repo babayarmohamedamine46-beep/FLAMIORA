@@ -142,6 +142,12 @@
 </div>
 <div class="product-grid" id="featured-grid"></div>
 </section>
+<section class="container section" id="ensembles-section">
+<div class="section-head">
+<div><span class="eyebrow" data-i18n="home.ensemblesEyebrow"></span><h2 class="section-title" data-i18n="home.ensembles"></h2></div>
+</div>
+<div class="product-grid" id="ensembles-grid"></div>
+</section>
 <section class="container section occasion-section">
 <div class="section-head"><div><span class="eyebrow" data-i18n="home.occasion"></span><h2 class="section-title" data-i18n="home.occasionText"></h2></div></div>
 <div class="occasion-grid">
@@ -213,18 +219,30 @@
 <div class="footer-col">
 <h4>FLAMIORA</h4>
 <p data-i18n="brand.tag"></p>
+<p data-i18n="footer.description"></p>
 </div>
 <div class="footer-col">
 <h4 data-i18n="footer.shop"></h4>
-<a data-i18n="nav.products" data-page-target="products" href="produits.html"></a>
-<a data-i18n="nav.about" data-page-target="about" href="a-propos.html"></a>
-<a data-i18n="nav.cart" data-page-target="cart" href="panier.html"></a>
+<a data-i18n="nav.home" href="index.html"></a>
+<a data-i18n="nav.categories" href="produits.html"></a>
+<a data-i18n="nav.products" href="produits.html"></a>
+<a data-i18n="nav.about" href="a-propos.html"></a>
+<a data-i18n="nav.contact" href="contact.html"></a>
+</div>
+<div class="footer-col">
+<h4 data-i18n="footer.categories"></h4>
+<a data-i18n="footer.necklaces" href="produits.html?cat=necklaces"></a>
+<a data-i18n="footer.bracelets" href="produits.html?cat=bracelets"></a>
+<a data-i18n="footer.rings" href="produits.html?cat=rings"></a>
+<a data-i18n="footer.earrings" href="produits.html?cat=earrings"></a>
+<a data-i18n="footer.allJewelry" href="produits.html"></a>
 </div>
 <div class="footer-col">
 <h4 data-i18n="footer.contact"></h4>
-<a href="tel:+212711088984">+212 711-088984</a>
-<a href="mailto:babayarmohamedamine4@gmail.com">babayarmohamedamine4@gmail.com</a>
-<a href="https://www.instagram.com/flamiora_officiel/" rel="noopener" target="_blank"><i aria-hidden="true" class="fa-brands fa-instagram"></i> Instagram @flamiora_officiel</a>
+<p><i aria-hidden="true" class="fa-solid fa-location-dot"></i> <span data-i18n="footer.address"></span></p>
+<a href="tel:+212711088984"><i aria-hidden="true" class="fa-solid fa-phone"></i> +212 711-088984</a>
+<a href="mailto:babayarmohamedamine4@gmail.com"><i aria-hidden="true" class="fa-solid fa-envelope"></i> babayarmohamedamine4@gmail.com</a>
+<a href="https://www.instagram.com/flamiora_officiel/" rel="noopener" target="_blank"><i aria-hidden="true" class="fa-brands fa-instagram"></i> Instagram</a>
 <a class="js-whatsapp-generic" href="#" rel="noopener" target="_blank"><i aria-hidden="true" class="fa-brands fa-whatsapp"></i> WhatsApp</a>
 </div>
 </div>
@@ -244,21 +262,21 @@
 <script src="assets/js/main.js"></script>
 <script src="assets/js/seo-enhancements.js"></script>
 <script>
+  const CATEGORY_ICONS = {
+    rings: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="15.5" r="6" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="15.5" r="4.1" stroke="currentColor" stroke-width="0.6" opacity="0.55"/><path d="M8.6 8.4L12 2.6L15.4 8.4H8.6Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M12 2.6V8.4M8.6 8.4L10.3 5.5M15.4 8.4L13.7 5.5" stroke="currentColor" stroke-width="0.6" opacity="0.7"/></svg>`,
+    necklaces: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3.5 4C3.5 10.6 7.2 15 12 15C16.8 15 20.5 10.6 20.5 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="0.2 2.3"/><path d="M10.3 14.6L12 17.3L13.7 14.6" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M12 17.3L9 21L15 21L12 17.3Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M12 17.3V21" stroke="currentColor" stroke-width="0.6" opacity="0.7"/></svg>`,
+    earrings: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8.6 5.6C8.6 3.7 10.15 2.2 12 2.2C13.85 2.2 15.4 3.7 15.4 5.6C15.4 7.5 13.85 9 12 9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M12 9V11.6" stroke="currentColor" stroke-width="1.3"/><path d="M8 13.6C8 12 9 11.4 12 11.4C15 11.4 16 12 16 13.6C16 16.4 14 19.6 12 19.6C10 19.6 8 16.4 8 13.6Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M9.3 13.4L14.7 13.4M10.2 15.6L13.8 15.6M12 13.4V19" stroke="currentColor" stroke-width="0.55" opacity="0.65"/></svg>`,
+    bracelets: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="12" cy="13" rx="8.6" ry="5.4" stroke="currentColor" stroke-width="1.3"/><path d="M4.3 10.6C7 13.3 17 13.3 19.7 10.6" stroke="currentColor" stroke-width="0.6" opacity="0.55"/><circle cx="12" cy="6.6" r="1.55" stroke="currentColor" stroke-width="1.3"/><circle cx="6.7" cy="8.4" r="0.95" fill="currentColor"/><circle cx="17.3" cy="8.4" r="0.95" fill="currentColor"/></svg>`,
+  };
   function categoryIcon(cat) {
-    const icons = {
-      earrings: 'fa-star',
-      necklaces: 'fa-gem',
-      rings: 'fa-gem',
-      bracelets: 'fa-heart'
-    };
-    return icons[cat.id] || 'fa-gem';
+    return CATEGORY_ICONS[cat.id] || CATEGORY_ICONS.rings;
   }
 
   function renderCategoryCard(cat) {
     const ar = cat.name_ar || '';
     const fr = cat.name_fr || '';
     const catImage = cat.image || cat.image_url || '';
-    const visual = catImage ? `<img class="category-image" src="${catImage}" alt="${localized(cat, 'name')}" loading="lazy"/>` : `<span class="category-circle" aria-hidden="true"><i class="fa-solid ${categoryIcon(cat)}"></i></span>`;
+    const visual = catImage ? `<img class="category-image" src="${catImage}" alt="${localized(cat, 'name')}" loading="lazy"/>` : `<span class="category-circle" aria-hidden="true">${categoryIcon(cat)}</span>`;
     return `<a class="category-card" href="produits.html?cat=${cat.id}">
       ${visual}
       <span class="category-name">${localized(cat, 'name')}</span>
@@ -312,9 +330,34 @@
     restart();
   }
 
+  function renderEnsembleCard(e) {
+    const price = Number(e.price) || 0;
+    const compareAt = Number(e.compare_at) || 0;
+    const discount = compareAt > price ? Math.round(((compareAt - price) / compareAt) * 100) : 0;
+    const compareHtml = compareAt > price ? `<span class="old">${formatPrice(compareAt)}</span>` : '';
+    const name = localized(e, 'name');
+    const buyMsg = getLocale() === 'ar'
+      ? `مرحبًا FLAMIORA، أريد شراء الطقم: ${name} (${formatPrice(price)})`
+      : `Bonjour FLAMIORA, je souhaite acheter l'ensemble : ${name} (${formatPrice(price)})`;
+    return `<div class="product-card ensemble-card">
+      ${discount > 0 ? `<span class="discount-badge">-${discount}%</span>` : ''}
+      <div class="thumb" aria-label="${name}">
+        ${e.image ? `<img src="${e.image}" alt="${name}" loading="lazy" decoding="async"/>` : `<span class="product-placeholder" aria-hidden="true"><i class="fa-solid fa-gem"></i></span>`}
+      </div>
+      <div class="body">
+        <span class="name">${name}</span>
+        <div class="price">${compareHtml}${formatPrice(price)}</div>
+        <a class="btn btn-primary" href="${buildWhatsAppUrl(buyMsg)}" rel="noopener" target="_blank">${t('ensemble.buyNow')}</a>
+      </div>
+    </div>`;
+  }
+
   function initHome() {
     document.getElementById('category-grid').innerHTML = window.CATEGORIES.map(renderCategoryCard).join('');
     document.getElementById('featured-grid').innerHTML = window.PRODUCTS.filter((p) => p.featured).slice(0, 4).map(renderProductCard).join('');
+    const ensembles = (window.ENSEMBLES || []).filter((e) => e.active !== false);
+    document.getElementById('ensembles-grid').innerHTML = ensembles.map(renderEnsembleCard).join('');
+    document.getElementById('ensembles-section').hidden = ensembles.length === 0;
     const recent = getRecentProducts(4);
     document.getElementById('recent-grid').innerHTML = recent.map(renderProductCard).join('');
     document.getElementById('recent-section').hidden = recent.length === 0;
@@ -379,7 +422,7 @@
 <a data-page="products" href="produits.html"><span class="ic"><i aria-hidden="true" class="fa-solid fa-layer-group"></i></span><span data-i18n="nav.categories"></span></a>
 <a class="bottom-cart" data-page="cart" href="panier.html"><span class="ic"><i aria-hidden="true" class="fa-solid fa-bag-shopping"></i></span><span data-i18n="nav.cart"></span><span class="badge cart-count" hidden="">0</span></a>
 <a data-page="wishlist" href="wishlist.html"><span class="ic"><i aria-hidden="true" class="fa-regular fa-heart"></i></span><span data-i18n="nav.wishlist"></span><span class="badge wishlist-count" hidden="">0</span></a>
-<button aria-label="Menu" data-open-menu="" type="button"><span class="ic"><i aria-hidden="true" class="fa-solid fa-bars"></i></span><span data-i18n="nav.menu"></span></button>
+<a href="tel:+212711088984"><span class="ic"><i aria-hidden="true" class="fa-solid fa-phone"></i></span><span data-i18n="nav.contact"></span></a>
 </div>
 </nav>
   <script src="assets/js/animations.js"></script>
