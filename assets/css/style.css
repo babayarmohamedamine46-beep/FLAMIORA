@@ -39,8 +39,11 @@ html, body {
   background: var(--flm-off-white);
   color: var(--flm-text);
   font-family: var(--flm-font-body);
-  overflow-x: hidden;
 }
+/* overflow-x:hidden must live on body ONLY, never on html too — having it on
+   both breaks position:sticky (notably on iOS Safari), which is why the
+   header used to scroll away instead of staying fixed at the top. */
+body { overflow-x: hidden; }
 
 h1, h2, h3, h4 {
   font-family: var(--flm-font-heading);
@@ -420,9 +423,6 @@ body.no-scroll { overflow: hidden; }
 }
 .header-search .search-icon { position: absolute; inset-inline-start: 14px; top: 50%; transform: translateY(-50%); opacity: 0.6; }
 .search-toggle { display: inline-flex; }
-@media (max-width: 860px) {
-  .search-toggle { display: none; }
-}
 .search-results {
   position: absolute; top: calc(100% + 8px); inset-inline: 0; z-index: 5;
   background: var(--flm-off-white); border: 1px solid var(--flm-border); border-radius: var(--flm-radius-md);
@@ -688,11 +688,37 @@ body {
   display: inline-flex;
   align-items: center; justify-content: center;
   border-radius: 50%;
-  background: linear-gradient(145deg, #fffdf9, #f4e8df);
-  border: 1px solid #ead9cf;
-  box-shadow: 0 9px 22px rgba(93,70,57,.08);
-  color: var(--flm-rose-deep);
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 35% 30%, #fffdf9 0%, var(--flm-cream) 55%, #f1e5dc 100%);
+  border: 1px solid rgba(173, 125, 108, 0.25);
+  box-shadow: 0 8px 25px rgba(92, 61, 49, 0.08), inset 0 0 0 5px rgba(255,255,255,0.45);
+  color: #b58b7b;
   font-size: 1.55rem;
+  transition: box-shadow .35s var(--flm-ease), border-color .35s var(--flm-ease);
+}
+.category-card:hover .category-circle {
+  border-color: rgba(173, 125, 108, 0.55);
+  box-shadow: 0 14px 35px rgba(92, 61, 49, 0.14), inset 0 0 0 5px rgba(255,255,255,0.6);
+}
+.category-decoration {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.55;
+  pointer-events: none;
+  color: #d9b98f;
+}
+.category-circle svg.cat-icon-svg {
+  position: relative;
+  z-index: 2;
+  width: 56%;
+  height: 56%;
+  transition: color .35s var(--flm-ease), transform .35s var(--flm-ease);
+}
+.category-card:hover .category-circle svg.cat-icon-svg {
+  color: #8f6758;
+  transform: scale(1.06);
 }
 .category-circle svg { width: 1.7em; height: 1.7em; }
 .category-name {
@@ -1178,7 +1204,8 @@ body.checkout-modal-open { overflow: hidden; }
 
 /* ==========================================================================\n   FLAMIORA — Mobile First implementation layer (2026)\n   ========================================================================== */
 @media (max-width: 767px) {
-  html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+  html, body { width: 100%; max-width: 100%; }
+  body { overflow-x: hidden; }
   body.has-bottom-nav { padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px)); }
   .container { width: 100%; max-width: none; padding-inline: 16px; }
   .section { padding-block: 34px; }
@@ -1193,12 +1220,17 @@ body.checkout-modal-open { overflow: hidden; }
   .logo img { height: 31px; max-width: 142px; }
   .main-nav { display: none; }
   .header-actions { gap: 2px; }
-  .header-actions .lang-switch, .header-actions .search-toggle { display: none; }
+  .header-actions .lang-switch { display: none; }
+  .header-actions .search-toggle { display: inline-flex; }
+  /* Cart already lives in the bottom navigation on mobile — no need to
+     duplicate it in the top header, so we free that space for search. */
+  .header-actions a[href="panier.html"] { display: none; }
   .header-actions .icon-btn { width: 40px; height: 40px; }
   .header-actions .icon-btn:first-of-type { margin-inline-start: 0; }
   .header-actions .icon-btn i { font-size: 1rem; }
   .header-actions .badge { min-width: 15px; height: 15px; font-size: .56rem; }
-  .header-search { display: none !important; }
+  .header-search { display: none; }
+  .site-header.search-open .header-search { display: block; }
 
   /* Hero: image-led, 430–470px tall, with text layered safely over the image. */
   .hero { padding: 0; background: var(--flm-bg); border-bottom: 0; }

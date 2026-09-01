@@ -28,11 +28,27 @@ function stockBadge(product) {
 
 const CART_KEY = 'flm_cart';
 
+// Cart lines can hold either a product or an ensemble: { id, qty, type }.
+// type defaults to 'product' so carts saved before ensembles existed keep working.
+function lineType(line) {
+  return line && line.type === 'ensemble' ? 'ensemble' : 'product';
+}
+
+function getCartItem(line) {
+  if (!line) return null;
+  if (lineType(line) === 'ensemble') {
+    const e = getEnsembleById(line.id);
+    // Ensembles are made-to-order sets with no per-unit stock tracking.
+    return e ? { ...e, stock: 99 } : null;
+  }
+  return getProductById(line.id);
+}
+
 function getCart() {
   try {
     const raw = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
     if (!Array.isArray(raw)) return [];
-    return raw.filter((line) => line && typeof line.id === 'string' && Number.isFinite(line.qty) && line.qty > 0 && getProductById(line.id));
+    return raw.filter((line) => line && typeof line.id === 'string' && Number.isFinite(line.qty) && line.qty > 0 && getCartItem(line));
   } catch {
     return [];
   }
@@ -47,38 +63,40 @@ function trackStoreEvent(name, data = {}) {
   if (window.FLM_ANALYTICS) window.FLM_ANALYTICS.track(name, data);
 }
 
-function addToCart(productId, qty = 1) {
-  const product = getProductById(productId);
-  if (!product || product.stock <= 0) return false;
+function addToCart(itemId, qty = 1, type = 'product') {
+  const item = type === 'ensemble' ? getEnsembleById(itemId) : getProductById(itemId);
+  if (!item) return false;
+  const maxQty = type === 'ensemble' ? 99 : item.stock;
+  if (type === 'product' && item.stock <= 0) return false;
   const lines = getCart();
-  const existing = lines.find((l) => l.id === productId);
-  const maxQty = product.stock;
+  const existing = lines.find((l) => l.id === itemId && lineType(l) === type);
   if (existing) {
     existing.qty = Math.min(existing.qty + qty, maxQty);
   } else {
     const initialQty = Math.max(1, Math.min(qty, maxQty));
-    lines.push({ id: productId, qty: initialQty });
+    lines.push({ id: itemId, qty: initialQty, type });
   }
   saveCart(lines);
-  trackStoreEvent('add_to_cart', { product_id: product.id, product_name: product.name_fr || product.name_ar, quantity: qty, value: product.price * qty, cart_count: cartCount() });
+  trackStoreEvent('add_to_cart', { product_id: item.id, product_name: item.name_fr || item.name_ar, quantity: qty, value: item.price * qty, cart_count: cartCount() });
   return true;
 }
 
-function updateCartQty(productId, qty) {
-  const product = getProductById(productId);
-  if (!product) return;
+function updateCartQty(itemId, qty, type = 'product') {
+  const item = type === 'ensemble' ? getEnsembleById(itemId) : getProductById(itemId);
+  if (!item) return;
+  const maxQty = type === 'ensemble' ? 99 : item.stock;
   let lines = getCart();
-  const clamped = Math.max(1, Math.min(qty, product.stock));
-  lines = lines.map((l) => (l.id === productId ? { ...l, qty: clamped } : l));
+  const clamped = Math.max(1, Math.min(qty, maxQty));
+  lines = lines.map((l) => (l.id === itemId && lineType(l) === type ? { ...l, qty: clamped } : l));
   saveCart(lines);
 }
 
-function removeFromCart(productId) {
-  const product = getProductById(productId);
-  const old = getCart().find((l) => l.id === productId);
-  const lines = getCart().filter((l) => l.id !== productId);
+function removeFromCart(itemId, type = 'product') {
+  const item = type === 'ensemble' ? getEnsembleById(itemId) : getProductById(itemId);
+  const old = getCart().find((l) => l.id === itemId && lineType(l) === type);
+  const lines = getCart().filter((l) => !(l.id === itemId && lineType(l) === type));
   saveCart(lines);
-  if (product) trackStoreEvent('remove_from_cart', { product_id: product.id, product_name: product.name_fr || product.name_ar, quantity: old ? old.qty : 1, value: old ? product.price * old.qty : product.price, cart_count: cartCount() });
+  if (item) trackStoreEvent('remove_from_cart', { product_id: item.id, product_name: item.name_fr || item.name_ar, quantity: old ? old.qty : 1, value: old ? item.price * old.qty : item.price, cart_count: cartCount() });
 }
 
 function cartCount() {
@@ -87,8 +105,8 @@ function cartCount() {
 
 function cartSubtotal() {
   return getCart().reduce((sum, l) => {
-    const product = getProductById(l.id);
-    return product ? sum + product.price * l.qty : sum;
+    const item = getCartItem(l);
+    return item ? sum + item.price * l.qty : sum;
   }, 0);
 }
 
@@ -303,8 +321,9 @@ function buildOrderMessage({ name, phone, cityId, address, notes }) {
   const total = subtotal + shipping;
 
   const itemLines = lines.map((l) => {
-    const p = getProductById(l.id);
-    return `- ${localized(p, 'name')} x${l.qty} = ${formatPrice(p.price * l.qty)}`;
+    const p = getCartItem(l);
+    const suffix = lineType(l) === 'ensemble' ? ` (${getLocale() === 'ar' ? 'طقم' : 'ensemble'})` : '';
+    return `- ${localized(p, 'name')}${suffix} x${l.qty} = ${formatPrice(p.price * l.qty)}`;
   }).join('\n');
 
   if (locale === 'ar') {

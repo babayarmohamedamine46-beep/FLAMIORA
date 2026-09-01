@@ -48,6 +48,7 @@
 <a data-i18n="nav.home" data-page-target="home" href="index.html"></a>
 <a data-i18n="nav.categories" data-page-target="products" href="produits.html#categories"></a>
 <a data-i18n="nav.products" data-page-target="products" href="produits.html"></a>
+<a data-i18n="nav.ensembles" data-page-target="ensembles" href="ensembles.html"></a>
 <a data-i18n="nav.about" data-page-target="about" href="a-propos.html"></a>
 <a data-i18n="nav.contact" data-page-target="account" href="contact.html"></a>
 </nav>
@@ -55,7 +56,6 @@
 <div class="lang-switch"><button data-lang="ar">AR</button><button data-lang="fr">FR</button></div>
 <button aria-label="Search" class="icon-btn search-toggle"><i aria-hidden="true" class="fa-solid fa-magnifying-glass"></i></button>
 <a aria-label="Wishlist" class="icon-btn" href="wishlist.html"><i aria-hidden="true" class="fa-regular fa-heart"></i><span class="badge wishlist-count" hidden="">0</span></a>
-<a aria-label="Panier" class="icon-btn" href="panier.html"><i aria-hidden="true" class="fa-solid fa-bag-shopping"></i><span class="badge cart-count" hidden="">0</span></a>
 </div>
 </div>
 <div class="header-search">
@@ -79,6 +79,7 @@
 <a href="index.html"><span class="ic"><i aria-hidden="true" class="fa-solid fa-house"></i></span><span data-i18n="nav.home"></span></a>
 <a href="produits.html"><span class="ic"><i aria-hidden="true" class="fa-solid fa-layer-group"></i></span><span data-i18n="nav.categories"></span></a>
 <a href="produits.html"><span class="ic"><i aria-hidden="true" class="fa-solid fa-gem"></i></span><span data-i18n="nav.products"></span></a>
+<a href="ensembles.html"><span class="ic"><i aria-hidden="true" class="fa-solid fa-gifts"></i></span><span data-i18n="nav.ensembles"></span></a>
 <a href="panier.html"><span class="ic"><i aria-hidden="true" class="fa-solid fa-bag-shopping"></i></span><span data-i18n="nav.cart"></span><span class="count cart-count">0</span></a>
 <a href="wishlist.html"><span class="ic"><i aria-hidden="true" class="fa-regular fa-heart"></i></span><span data-i18n="nav.wishlist"></span><span class="count wishlist-count">0</span></a>
 <a href="commande.html"><span class="ic"><i aria-hidden="true" class="fa-solid fa-truck"></i></span><span data-i18n="nav.trackOrder"></span></a>
@@ -145,6 +146,7 @@
 <section class="container section" id="ensembles-section">
 <div class="section-head">
 <div><span class="eyebrow" data-i18n="home.ensemblesEyebrow"></span><h2 class="section-title" data-i18n="home.ensembles"></h2></div>
+<a class="link-more" data-i18n="ensemble.viewAll" href="ensembles.html"></a>
 </div>
 <div class="product-grid" id="ensembles-grid"></div>
 </section>
@@ -226,6 +228,7 @@
 <a data-i18n="nav.home" href="index.html"></a>
 <a data-i18n="nav.categories" href="produits.html"></a>
 <a data-i18n="nav.products" href="produits.html"></a>
+<a data-i18n="nav.ensembles" href="ensembles.html"></a>
 <a data-i18n="nav.about" href="a-propos.html"></a>
 <a data-i18n="nav.contact" href="contact.html"></a>
 </div>
@@ -263,11 +266,36 @@
 <script src="assets/js/seo-enhancements.js"></script>
 <script>
   const CATEGORY_ICONS = {
-    rings: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="15.5" r="6" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="15.5" r="4.1" stroke="currentColor" stroke-width="0.6" opacity="0.55"/><path d="M8.6 8.4L12 2.6L15.4 8.4H8.6Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M12 2.6V8.4M8.6 8.4L10.3 5.5M15.4 8.4L13.7 5.5" stroke="currentColor" stroke-width="0.6" opacity="0.7"/></svg>`,
-    necklaces: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3.5 4C3.5 10.6 7.2 15 12 15C16.8 15 20.5 10.6 20.5 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="0.2 2.3"/><path d="M10.3 14.6L12 17.3L13.7 14.6" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M12 17.3L9 21L15 21L12 17.3Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M12 17.3V21" stroke="currentColor" stroke-width="0.6" opacity="0.7"/></svg>`,
-    earrings: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8.6 5.6C8.6 3.7 10.15 2.2 12 2.2C13.85 2.2 15.4 3.7 15.4 5.6C15.4 7.5 13.85 9 12 9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M12 9V11.6" stroke="currentColor" stroke-width="1.3"/><path d="M8 13.6C8 12 9 11.4 12 11.4C15 11.4 16 12 16 13.6C16 16.4 14 19.6 12 19.6C10 19.6 8 16.4 8 13.6Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M9.3 13.4L14.7 13.4M10.2 15.6L13.8 15.6M12 13.4V19" stroke="currentColor" stroke-width="0.55" opacity="0.65"/></svg>`,
-    bracelets: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="12" cy="13" rx="8.6" ry="5.4" stroke="currentColor" stroke-width="1.3"/><path d="M4.3 10.6C7 13.3 17 13.3 19.7 10.6" stroke="currentColor" stroke-width="0.6" opacity="0.55"/><circle cx="12" cy="6.6" r="1.55" stroke="currentColor" stroke-width="1.3"/><circle cx="6.7" cy="8.4" r="0.95" fill="currentColor"/><circle cx="17.3" cy="8.4" r="0.95" fill="currentColor"/></svg>`,
+    earrings: `<svg class="cat-icon-svg" viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M38 25 C38 17 44 12 50 12 C56 12 62 17 62 25 C62 32 58 37 53 39 C51 40 49 40 47 39 C42 37 38 32 38 25Z" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M50 39 L50 57" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M39 57 C39 51 44 47 50 47 C56 47 61 51 61 57 C61 64 56 69 50 69 C44 69 39 64 39 57Z" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <circle cx="50" cy="57" r="3" fill="currentColor"/>
+    </svg>`,
+    necklaces: `<svg class="cat-icon-svg" viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M25 23 C28 48 37 66 50 72 C63 66 72 48 75 23" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M31 35 C36 52 42 60 50 64 C58 60 64 52 69 35" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".55"/>
+      <path d="M50 63 L43 75 L50 86 L57 75 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+      <circle cx="50" cy="75" r="2.5" fill="currentColor"/>
+    </svg>`,
+    rings: `<svg class="cat-icon-svg" viewBox="0 0 100 100" aria-hidden="true">
+      <ellipse cx="50" cy="59" rx="25" ry="18" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M38 53 C39 43 43 35 50 35 C57 35 61 43 62 53" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M50 25 L56 35 L50 43 L44 35 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+      <circle cx="50" cy="34" r="2" fill="currentColor"/>
+    </svg>`,
+    bracelets: `<svg class="cat-icon-svg" viewBox="0 0 100 100" aria-hidden="true">
+      <ellipse cx="50" cy="54" rx="30" ry="17" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M20 54 C20 72 33 82 50 82 C67 82 80 72 80 54" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M27 48 C34 57 42 61 50 61 C58 61 66 57 73 48" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".5"/>
+      <circle cx="50" cy="61" r="3" fill="currentColor"/>
+    </svg>`,
   };
+  const CATEGORY_DECORATION = `<svg class="category-decoration" viewBox="0 0 100 100" aria-hidden="true">
+    <path d="M82 16 L84.6 22.2 L91 25 L84.6 27.8 L82 34 L79.4 27.8 L73 25 L79.4 22.2 Z" fill="currentColor" opacity=".85"/>
+    <circle cx="19" cy="81" r="2.1" fill="currentColor" opacity=".55"/>
+    <circle cx="13" cy="73" r="1.2" fill="currentColor" opacity=".4"/>
+  </svg>`;
   function categoryIcon(cat) {
     return CATEGORY_ICONS[cat.id] || CATEGORY_ICONS.rings;
   }
@@ -276,7 +304,9 @@
     const ar = cat.name_ar || '';
     const fr = cat.name_fr || '';
     const catImage = cat.image || cat.image_url || '';
-    const visual = catImage ? `<img class="category-image" src="${catImage}" alt="${localized(cat, 'name')}" loading="lazy"/>` : `<span class="category-circle" aria-hidden="true">${categoryIcon(cat)}</span>`;
+    const visual = catImage
+      ? `<img class="category-image" src="${catImage}" alt="${localized(cat, 'name')}" loading="lazy"/>`
+      : `<span class="category-circle" aria-hidden="true">${CATEGORY_DECORATION}${categoryIcon(cat)}</span>`;
     return `<a class="category-card" href="produits.html?cat=${cat.id}">
       ${visual}
       <span class="category-name">${localized(cat, 'name')}</span>
@@ -336,18 +366,22 @@
     const discount = compareAt > price ? Math.round(((compareAt - price) / compareAt) * 100) : 0;
     const compareHtml = compareAt > price ? `<span class="old">${formatPrice(compareAt)}</span>` : '';
     const name = localized(e, 'name');
+    const href = `ensemble.html?slug=${e.slug}`;
     const buyMsg = getLocale() === 'ar'
       ? `مرحبًا FLAMIORA، أريد شراء الطقم: ${name} (${formatPrice(price)})`
       : `Bonjour FLAMIORA, je souhaite acheter l'ensemble : ${name} (${formatPrice(price)})`;
     return `<div class="product-card ensemble-card">
       ${discount > 0 ? `<span class="discount-badge">-${discount}%</span>` : ''}
-      <div class="thumb" aria-label="${name}">
+      <a class="thumb" href="${href}" aria-label="${name}">
         ${e.image ? `<img src="${e.image}" alt="${name}" loading="lazy" decoding="async"/>` : `<span class="product-placeholder" aria-hidden="true"><i class="fa-solid fa-gem"></i></span>`}
-      </div>
+      </a>
       <div class="body">
-        <span class="name">${name}</span>
+        <a class="name" href="${href}">${name}</a>
         <div class="price">${compareHtml}${formatPrice(price)}</div>
-        <a class="btn btn-primary" href="${buildWhatsAppUrl(buyMsg)}" rel="noopener" target="_blank">${t('ensemble.buyNow')}</a>
+        <div style="display:flex; gap:8px;">
+          <button type="button" class="btn btn-outline" data-add-ensemble="${e.id}" style="flex:1; padding-inline:8px;">${t('ensemble.addToCart')}</button>
+          <a class="btn btn-primary" href="${buildWhatsAppUrl(buyMsg)}" rel="noopener" target="_blank" style="flex:1; padding-inline:8px;">${t('ensemble.buyNow')}</a>
+        </div>
       </div>
     </div>`;
   }
@@ -358,6 +392,14 @@
     const ensembles = (window.ENSEMBLES || []).filter((e) => e.active !== false);
     document.getElementById('ensembles-grid').innerHTML = ensembles.map(renderEnsembleCard).join('');
     document.getElementById('ensembles-section').hidden = ensembles.length === 0;
+    document.querySelectorAll('#ensembles-grid [data-add-ensemble]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        addToCart(btn.dataset.addEnsemble, 1, 'ensemble');
+        showToast(getLocale() === 'ar' ? 'أُضيف الطقم إلى السلة' : 'Ensemble ajouté au panier');
+        btn.textContent = getLocale() === 'ar' ? 'أُضيف ✓' : 'Ajouté ✓';
+        setTimeout(() => { btn.textContent = t('ensemble.addToCart'); }, 1200);
+      });
+    });
     const recent = getRecentProducts(4);
     document.getElementById('recent-grid').innerHTML = recent.map(renderProductCard).join('');
     document.getElementById('recent-section').hidden = recent.length === 0;

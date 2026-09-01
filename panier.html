@@ -23,6 +23,7 @@
 <a data-i18n="nav.home" data-page-target="home" href="index.html"></a>
 <a data-i18n="nav.categories" data-page-target="products" href="produits.html#categories"></a>
 <a data-i18n="nav.products" data-page-target="products" href="produits.html"></a>
+<a data-i18n="nav.ensembles" data-page-target="ensembles" href="ensembles.html"></a>
 <a data-i18n="nav.about" data-page-target="about" href="a-propos.html"></a>
 <a data-i18n="nav.contact" data-page-target="account" href="contact.html"></a>
 </nav>
@@ -30,7 +31,6 @@
 <div class="lang-switch"><button data-lang="ar">AR</button><button data-lang="fr">FR</button></div>
 <button aria-label="Search" class="icon-btn search-toggle"><i aria-hidden="true" class="fa-solid fa-magnifying-glass"></i></button>
 <a aria-label="Wishlist" class="icon-btn" href="wishlist.html"><i aria-hidden="true" class="fa-regular fa-heart"></i><span class="badge wishlist-count" hidden="">0</span></a>
-<a aria-label="Panier" class="icon-btn" href="panier.html"><i aria-hidden="true" class="fa-solid fa-bag-shopping"></i><span class="badge cart-count" hidden="">0</span></a>
 </div>
 </div>
 <div class="header-search">
@@ -54,6 +54,7 @@
 <a href="index.html"><span class="ic"><i aria-hidden="true" class="fa-solid fa-house"></i></span><span data-i18n="nav.home"></span></a>
 <a href="produits.html"><span class="ic"><i aria-hidden="true" class="fa-solid fa-layer-group"></i></span><span data-i18n="nav.categories"></span></a>
 <a href="produits.html"><span class="ic"><i aria-hidden="true" class="fa-solid fa-gem"></i></span><span data-i18n="nav.products"></span></a>
+<a href="ensembles.html"><span class="ic"><i aria-hidden="true" class="fa-solid fa-gifts"></i></span><span data-i18n="nav.ensembles"></span></a>
 <a href="panier.html"><span class="ic"><i aria-hidden="true" class="fa-solid fa-bag-shopping"></i></span><span data-i18n="nav.cart"></span><span class="count cart-count">0</span></a>
 <a href="wishlist.html"><span class="ic"><i aria-hidden="true" class="fa-regular fa-heart"></i></span><span data-i18n="nav.wishlist"></span><span class="count wishlist-count">0</span></a>
 <a href="commande.html"><span class="ic"><i aria-hidden="true" class="fa-solid fa-truck"></i></span><span data-i18n="nav.trackOrder"></span></a>
@@ -158,6 +159,7 @@
 <a data-i18n="nav.home" href="index.html"></a>
 <a data-i18n="nav.categories" href="produits.html"></a>
 <a data-i18n="nav.products" href="produits.html"></a>
+<a data-i18n="nav.ensembles" href="ensembles.html"></a>
 <a data-i18n="nav.about" href="a-propos.html"></a>
 <a data-i18n="nav.contact" href="contact.html"></a>
 </div>
@@ -195,26 +197,29 @@
 <script src="assets/js/seo-enhancements.js"></script>
 <script>
   function renderCartLine(line) {
-    const product = getProductById(line.id);
-    if (!product) return '';
-    const name = localized(product, 'name');
-    return `<div class="cart-line" data-line="${product.id}">
-      <a class="thumb" href="produit.html?slug=${product.slug}" aria-label="${name}">
-        <span class="product-placeholder" aria-hidden="true"><i class="fa-solid fa-gem"></i></span>
+    const isEnsemble = lineType(line) === 'ensemble';
+    const item = getCartItem(line);
+    if (!item) return '';
+    const name = localized(item, 'name');
+    const href = isEnsemble ? `ensemble.html?slug=${item.slug}` : `produit.html?slug=${item.slug}`;
+    const maxQty = isEnsemble ? 99 : item.stock;
+    return `<div class="cart-line" data-line="${item.id}">
+      <a class="thumb" href="${href}" aria-label="${name}">
+        <span class="product-placeholder" aria-hidden="true"><i class="fa-solid ${isEnsemble ? 'fa-gifts' : 'fa-gem'}"></i></span>
       </a>
       <div class="info">
-        <a class="name" href="produit.html?slug=${product.slug}">${name}</a>
-        <span class="unit-price">${formatPrice(product.price)}</span>
+        <a class="name" href="${href}">${name}${isEnsemble ? ` <small style="opacity:.6">(${t('ensemble.badge')})</small>` : ''}</a>
+        <span class="unit-price">${formatPrice(item.price)}</span>
         <div class="line-actions">
           <div class="qty-stepper">
-            <button type="button" data-minus="${product.id}" aria-label="-">−</button>
-            <input type="number" min="1" max="${product.stock}" value="${line.qty}" data-qty="${product.id}">
-            <button type="button" data-plus="${product.id}" aria-label="+">+</button>
+            <button type="button" data-minus="${item.id}" data-type="${isEnsemble ? 'ensemble' : 'product'}" aria-label="-">−</button>
+            <input type="number" min="1" max="${maxQty}" value="${line.qty}" data-qty="${item.id}" data-type="${isEnsemble ? 'ensemble' : 'product'}">
+            <button type="button" data-plus="${item.id}" data-type="${isEnsemble ? 'ensemble' : 'product'}" aria-label="+">+</button>
           </div>
-          <button type="button" class="remove-btn" data-remove="${product.id}">${t('cart.remove')}</button>
+          <button type="button" class="remove-btn" data-remove="${item.id}" data-type="${isEnsemble ? 'ensemble' : 'product'}">${t('cart.remove')}</button>
         </div>
       </div>
-      <div class="line-total">${formatPrice(product.price * line.qty)}</div>
+      <div class="line-total">${formatPrice(item.price * line.qty)}</div>
     </div>`;
   }
 
@@ -243,7 +248,7 @@
     const city = getCityById(cityId);
     const shipping = city ? city.price : 0;
     const itemText = lines.map((line) => {
-      const p = getProductById(line.id);
+      const p = getCartItem(line);
       return `<div class="quick-summary-item"><span>${localized(p, 'name')} <b>× ${line.qty}</b></span><strong>${formatPrice(p.price * line.qty)}</strong></div>`;
     }).join('');
     box.innerHTML = `${itemText}
@@ -316,13 +321,14 @@
     try {
       const message = buildOrderMessage({ name, phone, cityId, address, notes });
       const url = buildWhatsAppUrl(message);
-      window.open(url, '_blank', 'noopener');
+      sessionStorage.setItem('flm_last_wa_url', url);
+      const opened = window.open(url, '_blank', 'noopener');
 
       await saveQuickOrderToFirestore({ name, phone, cityId, address, notes });
       localStorage.removeItem(CART_KEY);
       updateCartBadge();
       closeCheckoutModal();
-      window.location.href = 'merci.html';
+      window.location.href = opened ? 'merci.html' : 'merci.html?wa=blocked';
     } finally {
       submit.disabled = false;
       submit.classList.remove('is-loading');
@@ -335,8 +341,8 @@
     const subtotal = cartSubtotal();
     const shipping = city ? city.price : 0;
     const items = lines.map((l) => {
-      const p = getProductById(l.id);
-      return { product_id: p.id, name_ar: p.name_ar, name_fr: p.name_fr, price: p.price, qty: l.qty };
+      const p = getCartItem(l);
+      return { product_id: p.id, type: lineType(l), name_ar: p.name_ar, name_fr: p.name_fr, price: p.price, qty: l.qty };
     });
     try {
       const ref = await db.collection('orders').add({
@@ -378,17 +384,19 @@
     const subtotal = cartSubtotal();
     document.getElementById('summary-subtotal').textContent = formatPrice(subtotal);
     document.getElementById('summary-total').textContent = formatPrice(subtotal);
-    document.querySelectorAll('[data-remove]').forEach((btn) => btn.addEventListener('click', () => { removeFromCart(btn.dataset.remove); renderCartPage(); }));
+    document.querySelectorAll('[data-remove]').forEach((btn) => btn.addEventListener('click', () => { removeFromCart(btn.dataset.remove, btn.dataset.type || 'product'); renderCartPage(); }));
     document.querySelectorAll('[data-minus]').forEach((btn) => btn.addEventListener('click', () => {
-      const line = getCart().find((l) => l.id === btn.dataset.minus);
-      if (line) { updateCartQty(btn.dataset.minus, Math.max(1, line.qty - 1)); renderCartPage(); }
+      const type = btn.dataset.type || 'product';
+      const line = getCart().find((l) => l.id === btn.dataset.minus && lineType(l) === type);
+      if (line) { updateCartQty(btn.dataset.minus, Math.max(1, line.qty - 1), type); renderCartPage(); }
     }));
     document.querySelectorAll('[data-plus]').forEach((btn) => btn.addEventListener('click', () => {
-      const line = getCart().find((l) => l.id === btn.dataset.plus);
-      if (line) { updateCartQty(btn.dataset.plus, line.qty + 1); renderCartPage(); }
+      const type = btn.dataset.type || 'product';
+      const line = getCart().find((l) => l.id === btn.dataset.plus && lineType(l) === type);
+      if (line) { updateCartQty(btn.dataset.plus, line.qty + 1, type); renderCartPage(); }
     }));
     document.querySelectorAll('[data-qty]').forEach((input) => input.addEventListener('change', () => {
-      updateCartQty(input.dataset.qty, parseInt(input.value, 10) || 1); renderCartPage();
+      updateCartQty(input.dataset.qty, parseInt(input.value, 10) || 1, input.dataset.type || 'product'); renderCartPage();
     }));
   }
 

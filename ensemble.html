@@ -1,34 +1,29 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 
 <html dir="rtl" lang="ar">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="#fffaf5" name="theme-color"/>
-<meta content="index,follow,max-image-preview:large" name="robots"/>
-<title data-i18n="about.title">من نحن | FLAMIORA</title>
-<meta content="تعرفي على قصة FLAMIORA ورؤيتنا في عالم المجوهرات الفاخرة." name="description"/>
-<link href="https://flamiora-accessories.github.io/FLAMIORA/a-propos.html" rel="canonical"/>
-<meta content="website" property="og:type"/>
+<title id="page-title">FLAMIORA</title>
+<meta content="اكتشفي تفاصيل الطقم من FLAMIORA." id="page-description" name="description"/>
+<meta content="index,follow,max-image-preview:large" id="page-robots" name="robots"/>
+<link href="https://flamiora-accessories.github.io/FLAMIORA/ensemble.html" id="page-canonical" rel="canonical"/>
+<meta content="product" property="og:type"/>
 <meta content="FLAMIORA" property="og:site_name"/>
-<meta content="من نحن | FLAMIORA" property="og:title"/>
-<meta content="تعرفي على قصة FLAMIORA ورؤيتنا في عالم المجوهرات الفاخرة." property="og:description"/>
-<meta content="https://flamiora-accessories.github.io/FLAMIORA/images/banners/banner-2.jpg" property="og:image"/>
-<meta content="https://flamiora-accessories.github.io/FLAMIORA/a-propos.html" property="og:url"/>
+<meta content="FLAMIORA" id="og-title" property="og:title"/>
+<meta content="اكتشفي تفاصيل الطقم من FLAMIORA." id="og-description" property="og:description"/>
+<meta content="https://flamiora-accessories.github.io/FLAMIORA/images/logo.png" id="og-image" property="og:image"/>
+<meta content="https://flamiora-accessories.github.io/FLAMIORA/ensemble.html" id="og-url" property="og:url"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="من نحن | FLAMIORA" name="twitter:title"/>
-<meta content="تعرفي على قصة FLAMIORA ورؤيتنا في عالم المجوهرات الفاخرة." name="twitter:description"/>
 <link href="images/favicon.png" rel="icon" type="image/png"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Cairo:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
 <link href="assets/css/style.css" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/animations.css">
-<link href="https://flamiora-accessories.github.io/FLAMIORA/a-propos.html" hreflang="ar" rel="alternate"/>
-<link href="https://flamiora-accessories.github.io/FLAMIORA/a-propos.html?lang=fr" hreflang="fr" rel="alternate"/>
-<link href="https://flamiora-accessories.github.io/FLAMIORA/a-propos.html" hreflang="x-default" rel="alternate"/>
 </head>
-<body class="has-bottom-nav" data-page="about" id="top">
+<body class="has-bottom-nav" data-page="ensembles" id="top">
 <header class="site-header">
 <div class="container header-inner">
 <button aria-label="Menu" class="mobile-menu-toggle"><i aria-hidden="true" class="fa-solid fa-bars"></i></button>
@@ -86,16 +81,31 @@
 </nav>
 </div>
 </div>
-<main class="container section editorial">
-<div class="editorial-media">
-<img alt="FLAMIORA" loading="lazy" src="images/banners/banner-2.jpg"/>
+<main class="container section" id="product-root">
+<p class="empty-state" data-i18n="notfound.title" hidden="" id="not-found"></p>
+<div hidden="" id="product-view">
+<div class="breadcrumb">
+<a data-i18n="nav.home" data-page-target="home" href="index.html"></a> /
+      <a data-i18n="nav.ensembles" href="ensembles.html"></a> /
+      <span id="crumb-product"></span>
 </div>
-<div class="editorial-copy">
-<span class="eyebrow" data-i18n="brand.tag"></span>
-<h1 id="about-title" style="font-size:1.9rem;margin:10px 0 16px;"></h1>
-<p id="about-p1" style="color:var(--flm-text-muted);margin-bottom:16px;line-height:1.8;"></p>
-<p id="about-p2" style="color:var(--flm-text-muted);margin-bottom:24px;line-height:1.8;"></p>
-<a class="btn btn-primary" data-i18n="hero.cta" href="produits.html"></a>
+<div class="product-detail">
+<div class="product-gallery">
+<div class="main-image" id="ens-main-image"><span aria-hidden="true" class="detail-placeholder"><i class="fa-solid fa-gifts"></i></span></div>
+</div>
+<div class="product-info">
+<h1 id="product-name"></h1>
+<div class="price-row">
+<span class="price" id="product-price"></span>
+<span class="old-price" hidden="" id="product-compare"></span>
+</div>
+<div style="display:flex; gap:10px; margin-top:6px;">
+<button class="btn btn-primary" data-i18n="ensemble.addToCart" id="add-to-cart-btn" style="flex:1;"></button>
+</div>
+<a class="btn btn-outline btn-block" href="#" id="product-whatsapp-btn" rel="noopener" style="margin-top:10px;" target="_blank"><i aria-hidden="true" class="fa-brands fa-whatsapp"></i> <span data-i18n="ensemble.buyNow"></span></a>
+<p class="description" id="product-description"></p>
+</div>
+</div>
 </div>
 </main>
 <footer class="site-footer">
@@ -147,20 +157,77 @@
 <script src="assets/js/main.js"></script>
 <script src="assets/js/seo-enhancements.js"></script>
 <script>
-  function initAboutPage() {
-    const isAr = getLocale() === 'ar';
-    document.getElementById('about-title').textContent = isAr ? 'قصة FLAMIORA' : "L'histoire de FLAMIORA";
-    document.getElementById('about-p1').textContent = isAr
-      ? 'وُلدت FLAMIORA من شغف بالتفاصيل الدقيقة والجمال الخالد. نختار كل قطعة بعناية لتعكس أناقة المرأة المغربية العصرية.'
-      : "FLAMIORA est née d'une passion pour les détails délicats et la beauté intemporelle. Chaque pièce est choisie avec soin pour refléter l'élégance de la femme marocaine moderne.";
-    document.getElementById('about-p2').textContent = isAr
-      ? 'نلتزم بجودة عالية وخدمة راقية، مع توصيل سريع لجميع المدن المغربية ودفع آمن عند الاستلام.'
-      : "Nous nous engageons pour une qualité irréprochable et un service soigné, avec une livraison rapide dans tout le Maroc et un paiement sécurisé à la livraison.";
+  function currentEnsembleSlug() {
+    return new URLSearchParams(window.location.search).get('slug') || '';
   }
-  document.addEventListener('DOMContentLoaded', initAboutPage);
-  document.addEventListener('DOMContentLoaded', () => {
+
+  function getEnsembleBySlug(slug) {
+    return (window.ENSEMBLES || []).find((e) => e.slug === slug);
+  }
+
+  function initEnsemblePage() {
+    const ensemble = getEnsembleBySlug(currentEnsembleSlug());
+
+    if (!ensemble) {
+      document.getElementById('not-found').hidden = false;
+      document.getElementById('product-view').hidden = true;
+      return;
+    }
+
+    document.getElementById('not-found').hidden = true;
+    document.getElementById('product-view').hidden = false;
+
+    const name = localized(ensemble, 'name');
+    const desc = localized(ensemble, 'desc');
+
+    document.getElementById('page-title').textContent = `${name} | FLAMIORA`;
+    document.getElementById('page-description').setAttribute('content', desc || name);
+    document.getElementById('page-canonical').setAttribute('href', `https://flamiora-accessories.github.io/FLAMIORA/ensemble.html?slug=${ensemble.slug}`);
+    document.getElementById('og-title').setAttribute('content', `${name} | FLAMIORA`);
+    document.getElementById('og-description').setAttribute('content', desc || name);
+    const imageUrl = ensemble.image ? new URL(ensemble.image, location.href).href : `${location.origin}/images/logo.png`;
+    document.getElementById('og-image')?.setAttribute('content', imageUrl);
+    document.getElementById('og-url').setAttribute('content', `https://flamiora-accessories.github.io/FLAMIORA/ensemble.html?slug=${ensemble.slug}`);
+
+    document.getElementById('crumb-product').textContent = name;
+    document.getElementById('product-name').textContent = name;
+
+    trackStoreEvent('product_view', { product_id: ensemble.id, product_name: name });
+
+    document.getElementById('product-price').textContent = formatPrice(ensemble.price);
+    const compareEl = document.getElementById('product-compare');
+    if (ensemble.compare_at) {
+      compareEl.textContent = formatPrice(ensemble.compare_at);
+      compareEl.hidden = false;
+    } else {
+      compareEl.hidden = true;
+    }
+
+    const mainImage = document.getElementById('ens-main-image');
+    mainImage.innerHTML = ensemble.image
+      ? `<img src="${ensemble.image}" alt="${name}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">`
+      : `<span aria-hidden="true" class="detail-placeholder"><i class="fa-solid fa-gifts"></i></span>`;
+
+    const buyMsg = getLocale() === 'ar'
+      ? `مرحبًا FLAMIORA، أريد شراء الطقم: ${name} (${formatPrice(ensemble.price)})`
+      : `Bonjour FLAMIORA, je souhaite acheter l'ensemble : ${name} (${formatPrice(ensemble.price)})`;
+    document.getElementById('product-whatsapp-btn').href = buildWhatsAppUrl(buyMsg);
+    document.getElementById('product-description').textContent = desc;
+
+    const addBtn = document.getElementById('add-to-cart-btn');
+    addBtn.textContent = t('ensemble.addToCart');
+    addBtn.onclick = () => {
+      addToCart(ensemble.id, 1, 'ensemble');
+      addBtn.textContent = getLocale() === 'ar' ? 'أُضيف إلى السلة ✓' : 'Ajouté au panier ✓';
+      setTimeout(() => { addBtn.textContent = t('ensemble.addToCart'); }, 1400);
+    };
+  }
+
+  FLM_DATA_READY.then(() => {
+    applyLocale();
+    initEnsemblePage();
     document.querySelectorAll('.lang-switch button').forEach((btn) => {
-      btn.addEventListener('click', () => setTimeout(initAboutPage, 0));
+      btn.addEventListener('click', () => setTimeout(initEnsemblePage, 0));
     });
   });
 </script>

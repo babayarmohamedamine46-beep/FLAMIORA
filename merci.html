@@ -31,9 +31,28 @@
 <div class="icon"><i aria-hidden="true" class="fa-solid fa-check"></i></div>
 <h1 data-i18n="confirm.title"></h1>
 <p data-i18n="confirm.text"></p>
+<a class="btn btn-outline btn-block" href="#" id="confirm-wa-btn" rel="noopener" style="display:none; margin-bottom:12px;" target="_blank"><i aria-hidden="true" class="fa-brands fa-whatsapp"></i> <span data-i18n="confirm.waButton"></span></a>
 <a class="btn btn-primary" data-i18n="confirm.backHome" href="index.html"></a>
 </div>
 </main>
+<script>
+  // Safety net: make sure the WhatsApp order message actually gets sent even if
+  // the popup was blocked by the browser (very common in Instagram/Facebook
+  // in-app browsers). We keep the exact same pre-filled message ready here.
+  (function () {
+    var url = sessionStorage.getItem('flm_last_wa_url');
+    var wasBlocked = new URLSearchParams(location.search).get('wa') === 'blocked';
+    var btn = document.getElementById('confirm-wa-btn');
+    if (url && btn) {
+      btn.href = url;
+      if (wasBlocked) {
+        btn.style.display = 'flex';
+        // Try again automatically once the page has settled.
+        setTimeout(function () { window.open(url, '_blank', 'noopener'); }, 400);
+      }
+    }
+  })();
+</script>
 <footer class="site-footer">
 <div class="analytics-note" data-i18n="footer.analyticsNote"></div>
 <div class="footer-bottom">© 2026 FLAMIORA — <span data-i18n="footer.rights"></span></div>
