@@ -16,7 +16,6 @@
 <meta content="FLAMIORA" id="og-title" property="og:title"/>
 <meta content="اكتشفي تفاصيل المنتج من FLAMIORA والمواصفات والسعر والتوفر." id="og-description" property="og:description"/>
 <meta content="https://flamiora-accessories.github.io/FLAMIORA/images/logo.png" id="og-image" property="og:image"/>
-<meta content="https://flamiora-accessories.github.io/FLAMIORA/images/logo.png" id="og-image" property="og:image"/>
 <meta content="https://flamiora-accessories.github.io/FLAMIORA/produit.html" id="og-url" property="og:url"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <link href="images/favicon.png" rel="icon" type="image/png"/>
@@ -192,10 +191,7 @@
         ${stockBadge(p)}
         <a href="produit.html?slug=${p.slug}" class="name">${localized(p, 'name')}</a>
         <div class="price">${compareHtml}${formatPrice(p.price)}</div>
-        <div class="card-actions">
-          <button class="btn btn-primary add-btn" data-add="${p.id}" ${disabled}>${t('product.addToCart')}</button>
-          <a class="quick-buy-btn" href="${buildWhatsAppUrl(getLocale() === 'ar' ? `مرحبًا FLAMIORA، أريد شراء المنتج: ${localized(p, 'name')} (${formatPrice(p.price)})` : `Bonjour FLAMIORA, je souhaite acheter ce produit : ${localized(p, 'name')} (${formatPrice(p.price)})`)}" target="_blank" rel="noopener" aria-label="${t('ensemble.buyNow')}"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
-        </div>
+        <button class="btn btn-primary add-btn" data-add="${p.id}" ${disabled}>${t('product.addToCart')}</button>
       </div>
     </div>`;
   }
@@ -269,8 +265,11 @@ const schemaEl = document.getElementById('product-jsonld');
 
     const wishBtn = document.getElementById('product-wish-btn');
     wishBtn.dataset.wish = product.id;
-    wishBtn.dataset.wired = '';
-    wireWishlistButtons();
+    if (!wishBtn.dataset.wired) {
+      wireWishlistButtons();
+    } else {
+      wishBtn.classList.toggle('is-active', isFavorite(product.id));
+    }
 
     const buyMsg = getLocale() === 'ar'
       ? `مرحبًا FLAMIORA، أريد شراء المنتج: ${name} (${formatPrice(product.price)})`

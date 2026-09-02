@@ -151,10 +151,7 @@
         ${stockBadge(e)}
         <a href="${href}" class="name">${name}</a>
         <div class="price">${compareHtml}${formatPrice(price)}</div>
-        <div class="card-actions">
-          <button class="btn btn-primary add-btn" data-add-ensemble="${e.id}">${t('ensemble.addToCart')}</button>
-          <a class="quick-buy-btn" href="${buildWhatsAppUrl(getLocale() === 'ar' ? `مرحبًا FLAMIORA، أريد شراء الطقم: ${name} (${formatPrice(price)})` : `Bonjour FLAMIORA, je souhaite acheter l'ensemble : ${name} (${formatPrice(price)})`)}" target="_blank" rel="noopener" aria-label="${t('ensemble.buyNow')}"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
-        </div>
+        <button class="btn btn-primary add-btn" data-add-ensemble="${e.id}">${t('ensemble.addToCart')}</button>
       </div>
     </div>`;
   }

@@ -242,15 +242,6 @@ textarea:focus-visible, select:focus-visible {
 .product-card .price { color: var(--flm-rose-deep); font-weight: 700; }
 .product-card .price .old { color: var(--flm-text-muted); text-decoration: line-through; font-weight: 500; font-size: 0.85em; margin-inline-end: 6px; }
 .product-card .add-btn { margin-top: auto; }
-.card-actions { margin-top: auto; display: flex; gap: 6px; align-items: stretch; }
-.card-actions .add-btn { flex: 1; margin-top: 0; min-width: 0; }
-.quick-buy-btn {
-  flex: 0 0 auto; width: 40px; display: inline-flex; align-items: center; justify-content: center;
-  border-radius: 999px; background: #25d366; color: #fff; font-size: 1.05rem;
-  box-shadow: 0 6px 14px rgba(37,211,102,.25); transition: transform .15s ease;
-}
-.quick-buy-btn:hover { transform: scale(1.08); }
-.quick-buy-btn:focus-visible { outline-offset: 3px; }
 .stock-badge { font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; display: inline-block; width: fit-content; }
 .stock-badge.low { background: #fbe6c8; color: #8a5a1a; }
 .stock-badge.out { background: #f5d9d7; color: var(--flm-danger); }
@@ -1016,7 +1007,7 @@ main { min-height: 50vh; }
 .footer-col h4 { font-family: var(--flm-font-body); font-weight: 700; }
 
 /* Floating utilities are separated from cart. */
-.fab-whatsapp { background: var(--flm-green); color: #fff; width: 52px; height: 52px; border: 3px solid rgba(255,255,255,.86); box-shadow: 0 10px 24px rgba(37,211,102,.22); }
+.fab-whatsapp { background: var(--flm-green); color: #fff; width: 52px; height: 52px; border: 3px solid rgba(255,255,255,.86); box-shadow: 0 8px 18px rgba(37,211,102,.16); }
 .fab-whatsapp .fab-label { position: absolute; inset-inline-start: calc(100% + 10px); background: rgba(255,253,249,.98); color: var(--flm-ink); border: 1px solid var(--flm-line); border-radius: 999px; padding: 6px 10px; font-size: .68rem; font-weight: 700; white-space: nowrap; opacity: 0; transform: translateX(4px); pointer-events: none; transition: .2s ease; box-shadow: 0 6px 16px rgba(93,70,57,.07); }
 .fab-whatsapp:hover .fab-label { opacity: 1; transform: translateX(0); }
 .back-to-top { position: fixed; inset-inline-end: 20px; bottom: 24px; z-index: 40; width: 46px; height: 46px; border-radius: 50%; display: inline-flex; align-items:center; justify-content:center; background: var(--flm-paper); color: var(--flm-accent); border: 1px solid var(--flm-line); box-shadow: 0 9px 24px rgba(93,70,57,.10); opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .2s ease, visibility .2s ease, transform .2s ease; }
@@ -1277,7 +1268,6 @@ body.checkout-modal-open { overflow: hidden; }
   .product-card .name { font-size: .82rem; line-height: 1.35; min-height: 2.2em; }
   .product-card .price { font-size: .9rem; }
   .product-card .add-btn { min-height: 38px; padding: 8px 8px; font-size: .76rem; }
-  .quick-buy-btn { width: 36px; font-size: .92rem; }
   .product-card .wish-btn { width: 34px; height: 34px; top: 8px; inset-inline-end: 8px; }
   .product-card .new-badge { top: 8px; inset-inline-start: 8px; padding: 4px 7px; }
   .discount-badge { top: 8px; inset-inline-start: 8px; padding: 4px 7px; font-size: .64rem; }
@@ -1339,8 +1329,8 @@ body.checkout-modal-open { overflow: hidden; }
   .bottom-nav .bottom-cart .badge { top: 2px; inset-inline-start: 58%; }
 
   /* Keep floating controls above the bottom navigation and clear of card actions. */
-  .fab-whatsapp { bottom: 96px; width: 44px; height: 44px; }
-  .back-to-top { bottom: 96px; inset-inline-end: 14px; width: 38px; height: 38px; }
+  .fab-whatsapp { bottom: 112px; width: 40px; height: 40px; box-shadow: 0 6px 14px rgba(37,211,102,.16); }
+  .back-to-top { bottom: 112px; inset-inline-end: 14px; width: 36px; height: 36px; }
 }
 
 @media (min-width: 768px) {

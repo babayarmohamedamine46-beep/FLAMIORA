@@ -168,10 +168,7 @@
         ${stockBadge(p)}
         <a href="produit.html?slug=${p.slug}" class="name">${localized(p, 'name')}</a>
         <div class="price">${compareHtml}${formatPrice(p.price)}</div>
-        <div class="card-actions">
-          <button class="btn btn-primary add-btn" data-add="${p.id}" ${disabled}>${t('product.addToCart')}</button>
-          <a class="quick-buy-btn" href="${buildWhatsAppUrl(getLocale() === 'ar' ? `مرحبًا FLAMIORA، أريد شراء المنتج: ${localized(p, 'name')} (${formatPrice(p.price)})` : `Bonjour FLAMIORA, je souhaite acheter ce produit : ${localized(p, 'name')} (${formatPrice(p.price)})`)}" target="_blank" rel="noopener" aria-label="${t('ensemble.buyNow')}"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
-        </div>
+        <button class="btn btn-primary add-btn" data-add="${p.id}" ${disabled}>${t('product.addToCart')}</button>
       </div>
     </div>`;
   }

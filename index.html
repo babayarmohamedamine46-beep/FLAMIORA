@@ -136,19 +136,19 @@
 <h2 class="section-title" data-i18n="home.categories"></h2>
 <div class="category-grid" id="category-grid"></div>
 </section>
-<section class="container section">
-<div class="section-head">
-<div><span class="eyebrow" data-i18n="home.collection"></span><h2 class="section-title" data-i18n="home.featured"></h2></div>
-<a class="link-more" data-i18n="products.title" href="produits.html"></a>
-</div>
-<div class="product-grid" id="featured-grid"></div>
-</section>
 <section class="container section" id="ensembles-section">
 <div class="section-head">
 <div><span class="eyebrow" data-i18n="home.ensemblesEyebrow"></span><h2 class="section-title" data-i18n="home.ensembles"></h2></div>
 <a class="link-more" data-i18n="ensemble.viewAll" href="ensembles.html"></a>
 </div>
 <div class="product-grid" id="ensembles-grid"></div>
+</section>
+<section class="container section">
+<div class="section-head">
+<div><span class="eyebrow" data-i18n="home.collection"></span><h2 class="section-title" data-i18n="home.featured"></h2></div>
+<a class="link-more" data-i18n="products.title" href="produits.html"></a>
+</div>
+<div class="product-grid" id="featured-grid"></div>
 </section>
 <section class="container section occasion-section">
 <div class="section-head"><div><span class="eyebrow" data-i18n="home.occasion"></span><h2 class="section-title" data-i18n="home.occasionText"></h2></div></div>
@@ -328,10 +328,7 @@
         ${stockBadge(p)}
         <a href="produit.html?slug=${p.slug}" class="name">${localized(p, 'name')}</a>
         <div class="price">${compareHtml}${formatPrice(p.price)}</div>
-        <div class="card-actions">
-          <button class="btn btn-primary add-btn" data-add="${p.id}" ${disabled}>${t('product.addToCart')}</button>
-          <a class="quick-buy-btn" href="${buildWhatsAppUrl(getLocale() === 'ar' ? `مرحبًا FLAMIORA، أريد شراء المنتج: ${localized(p, 'name')} (${formatPrice(p.price)})` : `Bonjour FLAMIORA, je souhaite acheter ce produit : ${localized(p, 'name')} (${formatPrice(p.price)})`)}" target="_blank" rel="noopener" aria-label="${t('ensemble.buyNow')}"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
-        </div>
+        <button class="btn btn-primary add-btn" data-add="${p.id}" ${disabled}>${t('product.addToCart')}</button>
       </div>
     </div>`;
   }
@@ -379,10 +376,7 @@
         ${stockBadge(e)}
         <a href="${href}" class="name">${name}</a>
         <div class="price">${compareHtml}${formatPrice(price)}</div>
-        <div class="card-actions">
-          <button class="btn btn-primary add-btn" data-add-ensemble="${e.id}">${t('ensemble.addToCart')}</button>
-          <a class="quick-buy-btn" href="${buildWhatsAppUrl(getLocale() === 'ar' ? `مرحبًا FLAMIORA، أريد شراء الطقم: ${name} (${formatPrice(price)})` : `Bonjour FLAMIORA, je souhaite acheter l'ensemble : ${name} (${formatPrice(price)})`)}" target="_blank" rel="noopener" aria-label="${t('ensemble.buyNow')}"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
-        </div>
+        <button class="btn btn-primary add-btn" data-add-ensemble="${e.id}">${t('ensemble.addToCart')}</button>
       </div>
     </div>`;
   }
