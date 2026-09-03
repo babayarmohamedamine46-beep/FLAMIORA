@@ -201,10 +201,13 @@
     const lines = getCart();
     const shipping = city ? city.price : 0;
     const subtotal = cartSubtotal();
-    const items = lines.map((l) => {
-      const p = getCartItem(l);
-      return { product_id: p.id, type: lineType(l), name_ar: p.name_ar, name_fr: p.name_fr, price: p.price, qty: l.qty };
-    });
+    const items = lines
+      .map((l) => {
+        const p = getCartItem(l);
+        if (!p) return null;
+        return { product_id: p.id, type: lineType(l), name_ar: p.name_ar, name_fr: p.name_fr, price: p.price, qty: l.qty };
+      })
+      .filter(Boolean);
     try {
       const docRef = await db.collection('orders').add({
         customer_name: name,
@@ -287,22 +290,35 @@
 
       console.log('[FLAMIORA] ORDER_SUBMIT_STARTED');
 
-      const message = buildOrderMessage({ name, phone, cityId, address, notes });
-      const url = buildWhatsAppUrl(message);
-      console.log('[FLAMIORA] WHATSAPP_URL', { length: url.length });
+      try {
+        const message = buildOrderMessage({ name, phone, cityId, address, notes });
+        const url = buildWhatsAppUrl(message);
+        console.log('[FLAMIORA] WHATSAPP_URL', { length: url.length });
 
-      const result = await saveOrderToFirestore({ name, phone, cityId, address, notes });
-      if (result.success) {
-        console.log('[FLAMIORA] FIRESTORE_ORDER_SUCCESS', { id: result.id });
-      } else {
-        console.error('[FLAMIORA] FIRESTORE_ORDER_ERROR', result.error);
+        const result = await saveOrderToFirestore({ name, phone, cityId, address, notes });
+        if (result.success) {
+          console.log('[FLAMIORA] FIRESTORE_ORDER_SUCCESS', { id: result.id });
+        } else {
+          console.error('[FLAMIORA] FIRESTORE_ORDER_ERROR', result.error);
+        }
+
+        sessionStorage.setItem('flm_last_wa_url', url);
+        localStorage.removeItem('flm_cart');
+
+        console.log('[FLAMIORA] WHATSAPP_REDIRECT');
+        window.location.href = 'merci.html';
+      } catch (err) {
+        // WhatsApp doit rester joignable même si une étape inattendue échoue
+        // (produit supprimé du panier, Firestore indisponible, etc.).
+        console.error('[FLAMIORA] ORDER_SUBMIT_UNEXPECTED_ERROR', { message: err && err.message });
+        try {
+          const fallbackUrl = buildWhatsAppUrl(buildOrderMessage({ name, phone, cityId, address, notes }));
+          sessionStorage.setItem('flm_last_wa_url', fallbackUrl);
+        } catch (e2) { /* ignore — le lien de secours restera absent sur merci.html */ }
+        isSubmittingOrder = false;
+        submitBtn.removeAttribute('disabled');
+        window.location.href = 'merci.html';
       }
-
-      sessionStorage.setItem('flm_last_wa_url', url);
-      localStorage.removeItem('flm_cart');
-
-      console.log('[FLAMIORA] WHATSAPP_REDIRECT');
-      window.location.href = 'merci.html';
     });
   }
 
