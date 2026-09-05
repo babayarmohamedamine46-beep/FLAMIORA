@@ -3,13 +3,13 @@
 // Security is enforced by Firebase Authentication + Firestore Rules.
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC7YHA1t8LTW3Ob1oQnRnA5jx78iHuaQQ0",
-  authDomain: "flamiora-f0062.firebaseapp.com",
-  projectId: "flamiora-f0062",
-  storageBucket: "flamiora-f0062.firebasestorage.app",
-  messagingSenderId: "995632463964",
-  appId: "1:995632463964:web:76c04597312e738acea699",
-  measurementId: "G-TF4TVKY6CY"
+  apiKey: "AIzaSyC0n7Ux9XuGyWEOiFw4TJcHFRHoFW52lLg",
+  authDomain: "flamiora-cbb24.firebaseapp.com",
+  projectId: "flamiora-cbb24",
+  storageBucket: "flamiora-cbb24.firebasestorage.app",
+  messagingSenderId: "759744804164",
+  appId: "1:759744804164:web:1c2c9dacd9fe91aff0d311",
+  measurementId: "G-YQ79BXQRWN"
 };
 
 if (!firebase.apps.length) {

@@ -3,7 +3,7 @@ const FLM_DEFAULT_SETTINGS = {
   brand_name: 'FLAMIORA',
   whatsapp_number: '212711088984',
   phone_display: '+212 711-088984',
-  email: 'babayarmohamedamine4@gmail.com',
+  email: 'flamiora.accessoires@gmail.com',
   instagram_url: 'https://www.instagram.com/flamiora_officiel/',
   free_shipping_threshold: 0,
   hero_image_1: 'images/banners/banner-2.jpg',

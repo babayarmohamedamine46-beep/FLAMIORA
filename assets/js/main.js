@@ -4,7 +4,7 @@ const STORE = {
   name: 'FLAMIORA',
   whatsappNumber: FLM_DEFAULT_WHATSAPP,
   phoneDisplay: '+212 711-088984',
-  email: 'babayarmohamedamine4@gmail.com',
+  email: 'flamiora.accessoires@gmail.com',
 };
 
 function sanitizeWhatsappNumber(raw) {
