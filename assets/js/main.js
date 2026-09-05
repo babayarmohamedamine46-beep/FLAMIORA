@@ -27,6 +27,17 @@ function formatPrice(amount) {
   return locale === 'ar' ? `${value} د.م.` : `${value} DH`;
 }
 
+function validateMoroccanPhone(value) {
+  const digits = String(value || '').replace(/[\s.\-()]/g, '');
+  return /^(0|\+212|00212)[5-7]\d{8}$/.test(digits);
+}
+
+function stockBadge(product) {
+  if (product.stock <= 0) return `<span class="stock-badge out">${t('product.outOfStock')}</span>`;
+  if (product.stock <= 5) return `<span class="stock-badge low">${t('product.lowStock')}</span>`;
+  return `<span class="stock-badge ok">${t('product.inStock')}</span>`;
+}
+
 function stockBadge(product) {
   if (product.stock <= 0) return `<span class="stock-badge out">${t('product.outOfStock')}</span>`;
   if (product.stock <= 5) return `<span class="stock-badge low">${t('product.lowStock')}</span>`;
